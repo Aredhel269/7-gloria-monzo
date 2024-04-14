@@ -1,0 +1,28 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "author": "Glòria Monzó",
+  "license": "MIT",
+  "dependencies": {
+    "autoprefixer":"^10.4.19",
+    "axios": "^1.6.8",
+    "firebase": "^10.11.0",
+    "next": "^14.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "postcss": "^8.4.38",
+    "react-image-file-resizer": "^0.4.8",
+    "socket.io-client": "^4.7.5",
+    "tailwindcss": "^3.4.3",
+    "wavesurfer.js": "^7.7.10",
+    "zego-express-engine-webrtc": "^3.3.0"
+  }
+}
