@@ -27,8 +27,14 @@ export class AppServer {
     );
     this.express.use(json());
     this.express.use(urlencoded({ extended: false }));
-    this.server = httpServer;
+
+    // Afegir la ruta GET per a la ruta principal ("/")
+    this.express.get("/", (req, res) => {
+      res.send("Backend App is running!");
+    });
+
     this.express.use(router);
+    this.server = httpServer;
   }
 
   async listen(): Promise<void> {
