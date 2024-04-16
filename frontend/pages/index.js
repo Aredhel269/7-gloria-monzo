@@ -39,11 +39,10 @@ const ChatApp = () => {
 
   return (
     <div>
-      <h1>Xat en temps real</h1>
-      <ChatList rooms={rooms} joinRoom{joinRoom} />
-      <RoomList  rooms={rooms} />
-      {currentRoom && <MessageList messages={messages}/>}
-      {currentRoom && <MessageInput sendMessage={sendMessage}/>}
+      <h1>Chat en temps real</h1>
+      <ChatList rooms={rooms} joinRoom={joinRoom} />
+      {currentRoom && <MessageList messages={messages} />}
+      {currentRoom && <MessageInput sendMessage={sendMessage} />}
     </div>
   );
 };
