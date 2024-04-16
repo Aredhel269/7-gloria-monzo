@@ -1,44 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
-import RoomList from '../components/RoomList';
-import MessageList from '../components/MessageList';
-import MessageInput from '../components/MessageInput';
+import RoomList from '../components/RoomList'; // Importem el nostre component RoomList
 
 const ChatApp = () => {
+  // Estats per emmagatzemar la llista de sales i els missatges
   const [rooms, setRooms] = useState([]);
   const [messages, setMessages] = useState([]);
-  const [socket, setSocket] = useState(null);
 
+  // Connexió al servidor de xat en carregar la pàgina
   useEffect(() => {
-    const newSocket = io('http://localhost:4000');
+    const socket = io('http://localhost:4000'); // Canvia la URL al servidor de xat
+    // Lògica per a rebre i gestionar els missatges del servidor
 
-    newSocket.on('connect', () => {
-      console.log('Connected to server');
-    });
-
-    newSocket.on('message', (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
-    });
-
-    setSocket(newSocket);
-
+    // Retorna una funció per a fer tasques de neteja en desconnectar el component
     return () => {
-      newSocket.disconnect();
+      socket.disconnect(); // Desconnecta del servidor de xat
     };
   }, []);
 
+  // Funció per enviar missatges
   const sendMessage = (message) => {
-    if (socket) {
-      socket.emit('message', message);
-    }
+    // Lògica per enviar el missatge al servidor
   };
 
   return (
     <div>
       <h1>Xat en temps real</h1>
-      <RoomList rooms={rooms} />
-      <MessageList messages={messages} />
-      <MessageInput sendMessage={sendMessage} />
+      {/* Mostrem el component RoomList */}
+      <RoomList />
+      {/* Component per a la llista de missatges */}
+      {/* Component per a la caixa d'entrada de missatges */}
     </div>
   );
 };
