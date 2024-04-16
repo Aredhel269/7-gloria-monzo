@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from 'react';
 
 const RoomList = () => {
-  // Estat per emmagatzemar la llista de sales
   const [rooms, setRooms] = useState([]);
 
-  // Funció per obtenir la llista de sales des del backend
   const fetchRooms = async () => {
     try {
-      // Fer la crida al backend per obtenir la llista de sales
-      // Guardar la resposta en l'estat 'rooms'
+      // Simulem les sales per ara
+      const mockRooms = ['Sala 1', 'Sala 2', 'Sala 3'];
+      setRooms(mockRooms);
     } catch (error) {
       console.error('Error fetching rooms:', error);
-      // Maneig d'errors
     }
   };
 
-  // useEffect per cridar fetchRooms quan el component es carrega
   useEffect(() => {
     fetchRooms();
   }, []);
@@ -23,7 +20,11 @@ const RoomList = () => {
   return (
     <div>
       <h2>Available Rooms</h2>
-      {/* Mostrar la llista de sales aquí */}
+      <ul>
+        {rooms.map((room, index) => (
+          <li key={index}>{room}</li>
+        ))}
+      </ul>
     </div>
   );
 };
