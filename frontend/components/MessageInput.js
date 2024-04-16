@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types'
 
 const MessageInput = ({ sendMessage }) => {
   const [message, setMessage] = useState('');
@@ -9,16 +10,29 @@ const MessageInput = ({ sendMessage }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    sendMessage(message);
-    setMessage('');
+    if (message.trim() !== '') {
+      sendMessage(message);
+      setMessage('');
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" value={message} onChange={handleChange} />
-      <button type="submit">Enviar</button>
-    </form>
+    <div className="message-input">
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={message}
+          onChange={handleChange}
+          placeholder="Escriu el teu missatge..."
+        />
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
   );
 };
+
+MessageInput.prototype = {
+  sendMessage: PropTypes.func.isRequired,
+}
 
 export default MessageInput;
