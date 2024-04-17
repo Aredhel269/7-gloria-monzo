@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
-import RoomList from '../components/RoomList'; // Importem el nostre component RoomList
-import MessageList from '../components/MessageList';
-import MessageInput from '../components/MessageInput';
+import RoomList from '../src/components/RoomList'; // Importem el nostre component RoomList
+import MessageList from '../src/components/MessageList';
+import MessageInput from '../src/components/MessageInput';
 
 const ChatApp = () => {
   // Estats per emmagatzemar la llista de sales i els missatges
