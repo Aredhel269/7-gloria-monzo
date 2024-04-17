@@ -1,0 +1,26 @@
+*{
+    font-family: 'Exo 2', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Rubik', sans-serif;
+    padding: 0;
+    margin: 0;
+    }
+    .mainContainer{
+      display: flex;
+      flex-flow: row nowrap;    
+      height: 100vh;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .centerComponentsContainer{
+      display: flex;
+      flex-flow: column nowrap;
+      width: 100%; 
+    }
+    
+    
+    
+    
+    
+    
