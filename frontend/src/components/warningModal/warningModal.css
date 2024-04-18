@@ -1,0 +1,13 @@
+.warningContainer{
+    padding: 1rem;
+    z-index: 100;
+    background-color:white;
+    text-align: center;
+    width: 10rem;
+    position: absolute;
+    margin: auto;
+    color: #10a37F;
+    font-weight: bold;
+    border: 1px solid black;
+    border-radius: 4px;
+}

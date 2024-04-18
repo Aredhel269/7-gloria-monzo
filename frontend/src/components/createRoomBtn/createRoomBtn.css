@@ -1,0 +1,48 @@
+.createRoomModalContainer{
+    position: absolute;  
+    width: 11rem;  
+    top: 5.6rem;
+    left: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: white;
+    border: 1px rgb(16, 15, 16) solid;
+    border-radius: 4px;
+    z-index: 100;
+}
+
+.createRoomForm{
+display: flex;
+flex-flow: row nowrap;
+align-items: center; 
+justify-content: center;
+text-decoration: none;
+background-color: white;
+color: #262728;
+border-radius: 4px;
+padding: 0.3rem 0.5rem;
+width: 11rem;
+height: 2.9rem;
+border: none;
+font-size: large;
+font-weight: bold;
+}
+
+.createRoomInput{
+    width: max-content;
+    height: max-content;
+    padding: 0.5rem;
+    border: none;
+}
+.createRoomInput:focus{
+    outline: none;
+}
+
+.creatingRoomBtn{
+    cursor: pointer;
+    font-size: 1.2rem;
+    height: fit-content;
+    background-color: white;
+    border: none;
+}

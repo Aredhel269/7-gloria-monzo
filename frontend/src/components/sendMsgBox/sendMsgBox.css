@@ -1,0 +1,42 @@
+.sendMsgForm{  
+    padding: 2px 4px;
+    align-self: flex-end;
+    display: flex;
+    flex-flow: row nowrap;  
+    justify-content: center;    
+    align-items: center;
+    margin: 0 auto ; 
+    width: 99.3%; 
+    background-color: #262728;
+    border: none;
+    height: 5rem;
+    ;
+  }
+  
+  .msgInput{
+    border: 2px solid black;
+    border-radius: 4px;
+    padding: 0.5rem 1.5rem;  
+    border: none;
+    border-radius: 4px 0 0 4px;
+    height: 1.5rem;
+    width: 20rem;
+  }
+  
+  .msgInput:focus{
+      outline: none;
+  }
+  
+  .sendMsgBtn{ 
+    border-radius: 0px 4px 4px 0px;
+    padding: 0;
+    height: 2.5rem;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .sendBtnImg{
+    height: 2rem;
+    padding-right: 0.5rem;
+    background-color: white;
+  }
