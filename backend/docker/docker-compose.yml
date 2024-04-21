@@ -3,13 +3,13 @@ services:
     image: mysql:latest
     restart: always
     environment:
-      MYSQL_DATABASE: 'XatSprint7'
+      MYSQL_DATABASE: 'dbsprint7'
       # So you don't have to use root, but you can if you like
-      MYSQL_USER: 'XatSprint7'
+      MYSQL_USER: 'usersprint7'
       # You can use whatever password you like
-      MYSQL_PASSWORD: 'XatSprint7'
+      MYSQL_PASSWORD: '1234'
       # Password for root access
-      MYSQL_ROOT_PASSWORD: 'XatSprint7'
+      MYSQL_ROOT_PASSWORD: '123456'
     ports:
       # <Port exposed> : < MySQL Port running inside container>
       - '3306:3306'
@@ -18,7 +18,7 @@ services:
       - '3306'
       # Where our data will be persisted
     volumes:
-      - XatSprint7:/var/lib/mysql
+      - dbsprint7:/var/lib/mysql
 # Names our volume
 volumes:
   XatSprint7:

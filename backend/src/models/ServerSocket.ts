@@ -5,8 +5,8 @@ import { createServer } from 'http';
 import { Server as SocketServer } from 'socket.io';
 import helmet from 'helmet'
 import { json, urlencoded } from 'body-parser';
-import { chatRouter } from '../chat/infrastructure/routes/Routes';
-import * as middlewares from '../middlewares/middleware'
+import { chatRouter } from '../routes/chatRoutes'; // CORREGIR!!!!!!!!!
+import * as middlewares from '../middlewares/middleware';
 
 dotenv.config();
 
@@ -24,11 +24,11 @@ let arrUsers: string[] = [];
 const defaultSession = 'defaultSession';
 
 io.on('connection', async (socket) => {
-  socket.broadcast.emit('wellcome', 'A user has connected!!!');
+  socket.broadcast.emit('welcome', 'A user has connected!!!');
   socket.join(defaultSession);
 
   socket.on('disconnect', () => {
-    console.log('an user has disconnected');
+    console.log('A user has disconnected');
   });
 
   socket.on('addUser', (data) => {
@@ -38,7 +38,7 @@ io.on('connection', async (socket) => {
 
   socket.on('deletedUser', (data) => {
     console.log(data);
-    arrUsers = arrUsers.filter((value) => value != data);
+    arrUsers = arrUsers.filter((value) => value !== data);
     socket.to(defaultSession).emit('currentUsers', arrUsers);
   });
 
@@ -52,7 +52,7 @@ app.use(urlencoded({ extended: true }));
 app.use(helmet());
 app.use(cors());
 app.use('/', chatRouter);
-app.use('/chat', middlewares, chatRouter);
+app.use('/chat', chatRouter);
 
 server.listen(port, () => {
   console.log(`Server running on port ${port}`);

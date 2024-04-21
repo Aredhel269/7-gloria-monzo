@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 
-export default (sequelize) => {
+export default (sequelize: any) => {
   const Room = sequelize.define('room', {
     roomId: {
       type: DataTypes.INTEGER,
@@ -13,7 +13,7 @@ export default (sequelize) => {
       allowNull: false,
       collate: 'utf8_bin'
     }
-  });
+  })
 
-  return Room;
-};
+  return Room
+}

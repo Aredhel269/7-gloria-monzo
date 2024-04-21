@@ -13,5 +13,6 @@ export const MESSAGES = {
   USERREGISTERED: 'User registered',
   ROOMREGISTERED: 'Room registered',
   USERREQUIRED: 'Username is required',
-  WRONGUSERORPASS: 'Wrong Username or password'
+  WRONGUSERORPASS: 'Wrong Username or password',
+  INVALIDTOKEN: 'Invalid token provided'
 }

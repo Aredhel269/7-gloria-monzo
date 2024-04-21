@@ -1,5 +1,6 @@
 import { Room } from '../../db'
-export const createRoom = async (serverSocket, roomName) => {
+import { Server } from 'socket.io'
+export const createRoom = async (serverSocket: Server, roomName: string) => {
   try {
     await Room.create(roomName)
     const rooms = await Room.findAll()
