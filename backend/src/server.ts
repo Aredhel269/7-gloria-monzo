@@ -1,43 +1,38 @@
-import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import dotenv from 'dotenv';
-import cors from 'cors';
-import { json, urlencoded } from 'body-parser';
-import apiRouter from './routes/route';
-import { ServerSocket } from './socket/ServerSocket'
-import './db';
 
-// Load environment variables
-dotenv.config();
-
-// Create Express application
-const app = express();
-
-// Create HTTP server
-const httpServer = createServer(app);
-
-// Start the Socket server
-new ServerSocket(httpServer);
-
-// Enable CORS for Express server
-app.use(cors());
-
-// Parse JSON and URL-encoded bodies
-app.use(json());
-app.use(urlencoded({ extended: true }));
-
-// API routes
-app.use('/', apiRouter);
-
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something went wrong!');
+const httpServer = createServer();
+const io = new Server(httpServer, {
+  cors: {
+    origin: 'http://localhost:3000', // Origen permès del client
+    methods: ['GET', 'POST'],
+  },
 });
 
-// Start the server
-const PORT = process.env.SERVER_PORT || 3000;
-httpServer.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+io.on('connection', (socket) => {
+  console.log('Un client s\'ha connectat');
+
+  // Gestió d'esdeveniments de Socket.IO
+  socket.on('join-room', (roomId) => {
+    socket.join(roomId);
+    console.log(`Client ${socket.id} s'ha unit a la sala ${roomId}`);
+  });
+
+  socket.on('leave-room', (roomId) => {
+    socket.leave(roomId);
+    console.log(`Client ${socket.id} ha abandonat la sala ${roomId}`);
+  });
+
+  socket.on('new-message', (message) => {
+    const { roomId, userId, text } = message;
+    io.to(roomId).emit('message', { userId, text });
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Un client s\'ha desconnectat');
+  });
+});
+
+httpServer.listen(3001, () => {
+  console.log('Servidor Socket.IO escoltant a http://localhost:3001');
 });

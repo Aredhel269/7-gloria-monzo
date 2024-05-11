@@ -1,0 +1,79 @@
+src/
+├── domain/
+│   ├── entities/
+│   │   ├── message.ts (Definició de la classe Message) v
+│   │   ├── room.ts (Definició de la classe Room) v
+│   │   └── user.ts (Definició de la classe User) v
+│   ├── repositories/
+│   │   ├── messageRepository.interface.ts (Interfície del repo de missatges) v
+│   │   ├── roomRepository.interface.ts (Interfície del repositori de sales) v
+│   │   └── userRepository.interface.ts (Interfície del repositori d usuaris) v
+│   └── services/
+│       ├── messageService.interface.ts (Interfície del servei de missatges) V
+│       ├── messageService.ts (Implementació del servei de missatges) V
+│       ├── roomService.interface.ts (Interfície del servei de sales) v
+│       ├── roomService.ts (Implementació del servei de sales) V
+│       ├── userService.interface.ts (Interfície del servei d usuaris) v
+│       └── userService.ts (Implementació del servei d usuaris) V
+├── infrastructure/
+│   ├── database/
+│   │   ├── database.ts (Configuració de la connexió a la base de dades)
+│   │   ├── messageRepository.ts (Implementació del repositori de missatges)
+│   │   ├── roomRepository.ts (Implementació del repositori de sales)
+│   │   └── userRepository.ts (Implementació del repositori d usuaris)
+│   └── socket/
+│       ├── socketServer.ts (Configuració del servidor de sockets)
+│       └── socketEvents.ts (Gestió dels esdeveniments de sockets)
+├── application/
+│   ├── controllers/
+│   │   ├── messageController.ts (Controlador per gestionar les rutes de missatges)
+│   │   ├── roomController.ts (Controlador per gestionar les rutes de sales)
+│   │   └── userController.ts (Controlador per gestionar les rutes d usuaris)
+│   └── services/
+│       ├── messageService.ts (Servei d aplicació per gestionar la lògica de missatges)
+│       ├── roomService.ts (Servei d aplicació per gestionar la lògica de sales)
+│       └── userService.ts (Servei d aplicació per gestionar la lògica d usuaris)
+├── interfaces/
+│   ├── http/
+│   │   ├── routes/
+│   │   │   ├── messageRoutes.ts (Definició de les rutes de missatges)
+│   │   │   ├── roomRoutes.ts (Definició de les rutes de sales)
+│   │   │   └── userRoutes.ts (Definició de les rutes d usuaris)
+│   │   └── server.ts (Configuració del servidor HTTP)
+│   └── socket/
+│       ├── socketEvents.ts (Gestió dels esdeveniments de sockets des de la interfície)
+│       └── socketServer.ts (Configuració del servidor de sockets des de la interfície)
+└── app.ts (Punt d entrada de l aplicació)
+
+
+Capa de domini:
+
+- entities/message.ts, entities/room.ts, entities/user.ts: Defineixen les classes que representen les entitats del domini (Message, Room i User).
+- repositories/*.interface.ts: Defineixen les interfícies dels repositoris per accedir a les dades de les entitats.
+- services/*.interface.ts: Defineixen les interfícies dels serveis del domini, que contenen la lògica de negoci principal.
+- services/*.ts: Implementen els serveis del domini utilitzant els repositoris per accedir a les dades.
+
+Capa infraestructura:
+
+- database/database.ts: Configura la connexió a la base de dades (Sequelize, MongoDB, etc.).
+- database/*Repository.ts: Implementen els repositoris definits a la capa de domini, utilitzant la base de dades per accedir a les dades.
+- socket/socketServer.ts: Configura el servidor de sockets (Socket.IO) per a la comunicació en temps real.
+- socket/socketEvents.ts: Gestiona els esdeveniments de sockets, com ara la connexió d'usuaris, l'enviament de missatges, etc.
+
+Capa d'aplicació:
+
+- controllers/*Controller.ts: Gestionen les rutes HTTP i orquestren la lògica de negoci utilitzant els serveis d'aplicació.
+- services/*Service.ts: Implementen la lògica de negoci de l'aplicació, utilitzant els serveis del domini i els repositoris.
+
+Capa d'interfícies:
+
+- http/routes/*Routes.ts: Defineixen les rutes HTTP per a les diferents entitats (missatges, sales, usuaris).
+- http/server.ts: Configura el servidor HTTP (Express) i carrega les rutes.
+- socket/socketEvents.ts: Gestiona els esdeveniments de sockets des de la interfície, com ara l'enviament de missatges en temps real.
+- socket/socketServer.ts: Configura el servidor de sockets des de la interfície.
+
+Punt d'entrada:
+
+- app.ts: És el punt d'entrada de l'aplicació, on s'inicien els servidors HTTP i de sockets, i es carreguen les configuracions necessàries.
+
+Aquesta estructura segueix l'arquitectura hexagonal (Ports i Adaptadors) i separa clarament les preocupacions en diferents capes. La capa de domini conté la lògica de negoci principal, mentre que la capa d'infraestructura proporciona implementacions concretes per accedir a les dades i altres recursos. La capa d'aplicació orquestra la lògica de negoci, i la capa d'interfícies gestiona les entrades i sortides de l'aplicació.
