@@ -1,35 +1,33 @@
 export class User {
-    private _userId!: number;
-    private _userName: string;
-    private _displayName: string | undefined;
-    private _password: string;
-  
-    constructor(userName: string, password: string, displayName?: string) {
+  private _userId!: number;
+  private _userName: string;
+  private _password: string;
+  rooms: string[] = []; // Llista de sales de xat a les quals pertany l'usuari
+
+  constructor(userName: string, password: string) {
       this._userName = userName;
       this._password = password;
-      this._displayName = displayName;
-    }
-  
-    get userId(): number {
-      return this._userId;
-    }
-  
-    get userName(): string {
-      return this._userName;
-    }
-  
-    get displayName(): string | undefined {
-      return this._displayName;
-    }
-  
-    get password(): string {
-      return this._password;
-    }
   }
 
-export interface PrismaUser {
-  userName: string
-  displayName: string
-  password: string
-  rooms: any[]
+  get userId(): number {
+    return this._userId
+  }
+
+  get userName(): string {
+    return this._userName
+  }
+  get password(): string {
+    return this._password
+  }
+  // Mètode per afegir una sala de xat a les sales de l'usuari
+  addRoom(roomId: string) {
+      this.rooms.push(roomId);
+  }
+
+  // Mètode per eliminar una sala de xat de les sales de l'usuari
+  removeRoom(roomId: string) {
+      this.rooms = this.rooms.filter(room => room !== roomId);
+  }
+
+  // Altres mètodes i propietats de la classe User
 }

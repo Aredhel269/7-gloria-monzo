@@ -10,17 +10,17 @@ const io = new Server(httpServer, {
 });
 
 io.on('connection', (socket) => {
-  console.log('Un client s\'ha connectat');
+  console.log('Client connected');
 
   // Gestió d'esdeveniments de Socket.IO
   socket.on('join-room', (roomId) => {
     socket.join(roomId);
-    console.log(`Client ${socket.id} s'ha unit a la sala ${roomId}`);
+    console.log(`Client ${socket.id} in the room ${roomId}`);
   });
 
   socket.on('leave-room', (roomId) => {
     socket.leave(roomId);
-    console.log(`Client ${socket.id} ha abandonat la sala ${roomId}`);
+    console.log(`Client ${socket.id} leave room ${roomId}`);
   });
 
   socket.on('new-message', (message) => {
@@ -29,10 +29,10 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    console.log('Un client s\'ha desconnectat');
+    console.log('Client disconnected');
   });
 });
 
 httpServer.listen(3001, () => {
-  console.log('Servidor Socket.IO escoltant a http://localhost:3001');
+  console.log('Socket.IO server running at http://localhost:3001');
 });

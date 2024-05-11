@@ -9,38 +9,20 @@ export class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-  async createUser(
-    userName: string,
-    password: string,
-    displayName?: string
-  ): Promise<User> {
-    const newUser = new User(userName, password, displayName)
-    const userDTO = {
-      userName: newUser.userName,
-      password: newUser.password,
-      displayName: newUser.displayName || '', // Use empty string if displayName is undefined
-      rooms: [] // Add an empty rooms array
+    async createUser(
+        userName: string,
+        password: string,
+    ): Promise<User> {
+        const newUser = new User(userName, password); 
+      return this.userRepository.createUser(newUser);
     }
-    const prismaUser = await this.userRepository.createUser(userDTO)
-    return new User(
-      prismaUser.userName,
-      prismaUser.password,
-      prismaUser.displayName
-    )
-  }
 
-  async getUserByUsername(userName: string): Promise<User | null> {
-    const prismaUser = await this.userRepository.getUserByUsername(userName)
-    if (!prismaUser) return null
-    return {
-      _userId: prismaUser.id,
-      _userName: prismaUser.userName,
-      _displayName: prismaUser.displayName,
-      _password: prismaUser.password
+    async getUserByUserName(userName: string): Promise<User | null> {
+      return this.userRepository.getUserByUserName(userName) 
     }
-  }
 
     async getAllUsers(): Promise<User[]> {
+        
         return this.userRepository.getAllUsers()
     }
 

@@ -1,11 +1,10 @@
-//import { User } from '../entities/user';
-import { PrismaUser } from '../../domain/entities/user';
+import { User } from '../entities/user';
 
 
 export interface UserRepository {
-  createUser(user: PrismaUser): Promise<PrismaUser>;
-  getUserByUsername(userName: string): Promise<PrismaUser | null>;
-  getAllUsers(): Promise<PrismaUser[]>;
+  createUser(user: User): Promise<User>;
+  getUserByUserName(userName: string): Promise<User | null>;
+  getAllUsers(): Promise<User[]>;
 }
   // Altres mètodes necessaris per gestionar usuaris
 
