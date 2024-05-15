@@ -1,6 +1,6 @@
-import { UserRepository } from '../../domain/repositories/userRepository.interface';
+import { UserRepository } from '../../domain/repositories/userRepository';
 import { PrismaClient } from '@prisma/client';
-import {User} from '../../domain/entities/user'
+import { User } from '../../domain/entities/user'
 
 
 const prisma = new PrismaClient();
@@ -13,12 +13,10 @@ export class UserRepositoryImpl implements UserRepository {
         password: user.password
       }
     })
-
     return newUser
   }
 
-
-async getUserByUserName(userName: string): Promise<User | null> {
+  async getUserByUserName(userName: string): Promise<User | null> {
     const user: User | null = await prisma.user.findUnique({
       where: {
         userName

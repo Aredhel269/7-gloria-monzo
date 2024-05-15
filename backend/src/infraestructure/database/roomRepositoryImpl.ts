@@ -1,5 +1,5 @@
 import { Room } from '../../domain/entities/room';
-import { RoomRepository } from '../../domain/repositories/roomRepository.interface';
+import { RoomRepository } from '../../domain/repositories/roomRepository';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();

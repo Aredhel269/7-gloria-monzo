@@ -1,6 +1,8 @@
 services:
   XatSprint7:
+  # Configuration
     image: mysql:latest
+    build: ./backend
     restart: always
     environment:
       MYSQL_DATABASE: 'dbsprint7'

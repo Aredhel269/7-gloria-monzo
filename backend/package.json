@@ -57,5 +57,8 @@
       "src"
     ],
     "ext": "ts"
+  },
+  "prisma": {
+    "schema": "./prisma/schema.prisma"
   }
 }

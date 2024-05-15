@@ -10,10 +10,10 @@ export const leaveRoom = (roomId: string) => {
   socket.emit('leave-room', roomId);
 };
 
-export const sendMessage = (roomId: string, userId: number, text: string) => {
-  socket.emit('new-message', { roomId, userId, text });
+export const sendMessage = (roomId: string, userId: number, messageText: string) => {
+  socket.emit('new-message', { roomId, userId, messageText });
 };
 
-export const onMessage = (callback: (message: { userId: number; text: string }) => void) => {
+export const onMessage = (callback: (message: { userId: number; messageText: string }) => void) => {
   socket.on('message', callback);
 };
