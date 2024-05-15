@@ -5,22 +5,18 @@ src/
 │   │   ├── room.ts (Definició de la classe Room) v
 │   │   └── user.ts (Definició de la classe User) v
 │   ├── repositories/
-│   │   ├── messageRepository.interface.ts (Interfície del repo de missatges) v
-│   │   ├── roomRepository.interface.ts (Interfície del repositori de sales) v
-│   │   └── userRepository.interface.ts (Interfície del repositori d usuaris) v
+│   │   ├── messageRepositor.ts (Interfície del repo de missatges) v
+│   │   ├── roomRepository..ts (Interfície del repositori de sales) v
+│   │   └── userRepository.ts (Interfície del repositori d usuaris) v
 │   └── services/
-│       ├── messageService.interface.ts (Interfície del servei de missatges) V
-│       ├── messageService.ts (Implementació del servei de missatges) V
-│       ├── roomService.interface.ts (Interfície del servei de sales) v
-│       ├── roomService.ts (Implementació del servei de sales) V
-│       ├── userService.interface.ts (Interfície del servei d usuaris) v
-│       └── userService.ts (Implementació del servei d usuaris) V
+│       ├── messageService.ts (Interfície del servei de missatges) V
+│       ├── roomService.ts (Interfície del servei de sales) v
+│       ├── userService.ts (Interfície del servei d usuaris) v
 ├── infrastructure/
 │   ├── database/
-│   │   ├── database.ts (Configuració de la connexió a la base de dades)
-│   │   ├── messageRepository.ts (Implementació del repositori de missatges)
-│   │   ├── roomRepository.ts (Implementació del repositori de sales)
-│   │   └── userRepository.ts (Implementació del repositori d usuaris)
+│   │   ├── messageRepositoryImpl.ts (Implementació del repositori de missatges)
+│   │   ├── roomRepositoryImpl.ts (Implementació del repositori de sales)
+│   │   └── userRepositoryImpl.ts (Implementació del repositori d usuaris)
 │   └── socket/
 │       ├── socketServer.ts (Configuració del servidor de sockets)
 │       └── socketEvents.ts (Gestió dels esdeveniments de sockets)
@@ -48,7 +44,9 @@ src/
 
 Capa de domini:
 
-- entities/message.ts, entities/room.ts, entities/user.ts: Defineixen les classes que representen les entitats del domini (Message, Room i User).
+- entities/message.ts, 
+- entities/room.ts, 
+- entities/user.ts: Defineixen les classes que representen les entitats del domini (Message, Room i User).
 - repositories/*.interface.ts: Defineixen les interfícies dels repositoris per accedir a les dades de les entitats.
 - services/*.interface.ts: Defineixen les interfícies dels serveis del domini, que contenen la lògica de negoci principal.
 - services/*.ts: Implementen els serveis del domini utilitzant els repositoris per accedir a les dades.
@@ -77,3 +75,9 @@ Punt d'entrada:
 - app.ts: És el punt d'entrada de l'aplicació, on s'inicien els servidors HTTP i de sockets, i es carreguen les configuracions necessàries.
 
 Aquesta estructura segueix l'arquitectura hexagonal (Ports i Adaptadors) i separa clarament les preocupacions en diferents capes. La capa de domini conté la lògica de negoci principal, mentre que la capa d'infraestructura proporciona implementacions concretes per accedir a les dades i altres recursos. La capa d'aplicació orquestra la lògica de negoci, i la capa d'interfícies gestiona les entrades i sortides de l'aplicació.
+
+
+
+
+prisma key 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiYjM4YWNkMDMtNWIxYS00MTc5LWJiNjYtZjZlNzYwNmEyOGFlIiwidGVuYW50X2lkIjoiYWFiOTA4MTI0MTczM2U1Y2QxMTliODg1ZDllYmYzNGRhZTgxYjU3MWJhYTA0NzA5YWJmNGM3YzA4NjI1ZGJkZCIsImludGVybmFsX3NlY3JldCI6ImQ3YTlhYjM0LTgzNmEtNDc1NS1iZmU5LWI5MjBkM2MwYTViMSJ9.RML10K0oCl8Se2XaRwYVhwiJbTJ37d7vVUdV_bJaHvM
