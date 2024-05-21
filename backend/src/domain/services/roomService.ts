@@ -27,5 +27,4 @@ export class RoomServiceImpl implements RoomService {
         return this.roomRepository.getAllRooms()
     }
 
-    // Implementacions d'altres mètodes del servei de rooms
 }

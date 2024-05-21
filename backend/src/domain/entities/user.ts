@@ -1,5 +1,5 @@
 export class User {
-  private _userId!: number;
+  private _userId!: string;
   private _userName: string;
   private _password: string;
   rooms: string[] = []; // Llista de sales de xat a les quals pertany l'usuari
@@ -9,7 +9,7 @@ export class User {
       this._password = password;
   }
 
-  get userId(): number {
+  get userId(): string {
     return this._userId
   }
 
@@ -28,6 +28,4 @@ export class User {
   removeRoom(roomId: string) {
       this.rooms = this.rooms.filter(room => room !== roomId);
   }
-
-  // Altres mètodes i propietats de la classe User
 }

@@ -4,12 +4,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-interface MessageData {
-  id: number;
-  messageText: string;
-  userId: number;
-  roomId: number;
-}
+
 
 export class MessageRepositoryImpl implements MessageRepository {
   async createMessage(message: Message): Promise<Message> {
@@ -28,18 +23,19 @@ export class MessageRepositoryImpl implements MessageRepository {
     );
   }
 
-  async getMessagesByRoomId(roomId: number): Promise<Message[]> {
+  async getMessagesByRoomId(roomId: string): Promise<Message[]> {
     const messages = await prisma.message.findMany({
       where: {
         roomId,
       },
     });
 
-    return messages.map(
-      (m: MessageData) =>
-        new Message(m.messageText, m.userId, m.roomId)
-    );
+      return messages.map(msg => new Message(
+      msg.messageText,
+      msg.userId,
+      msg.roomId
+    ));
   }
 
-  // Implementacions d'altres mètodes del repositori de missatges
 }
+

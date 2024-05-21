@@ -1,10 +1,8 @@
 import { Message } from '../entities/message';
 import { MessageRepository } from '../repositories/messageRepository';
-
 export interface MessageService {
-  createMessage(messageText: string, userId: number, roomId: number): Promise<Message>;
-  getMessagesByRoomId(roomId: number): Promise<Message[]>;
-  // Altres mètodes necessaris per gestionar missatges
+  createMessage(messageText: string, userId: string, roomId: string): Promise<Message>;
+  getMessagesByRoomId(roomId: string): Promise<Message[]>;
 }
 export class MessageServiceImpl implements MessageService {
   private messageRepository: MessageRepository;
@@ -13,16 +11,14 @@ export class MessageServiceImpl implements MessageService {
     this.messageRepository = messageRepository;
   }
 
-  async createMessage(messageText: string, userId: number, roomId: number): Promise<Message> {
+  async createMessage(messageText: string, userId: string, roomId: string): Promise<Message> {
     const newMessage = new Message(messageText, userId, roomId);
     return this.messageRepository.createMessage(newMessage);
   }
 
-  async getMessagesByRoomId(roomId: number): Promise<Message[]> {
+  async getMessagesByRoomId(roomId: string): Promise<Message[]> {
     return this.messageRepository.getMessagesByRoomId(roomId);
   }
-
-  // Implementacions d'altres mètodes del servei de missatges
 }
 
 

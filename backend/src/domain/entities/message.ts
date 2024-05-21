@@ -1,16 +1,16 @@
 export class Message {
-    private _messageId!: number;
+    private _messageId!: string;
     private _messageText: string;
-    private _userId: number;
-    private _roomId: number;
+    private _userId: string;
+    private _roomId: string;
   
-    constructor(messageText: string, userId: number, roomId: number) {
+    constructor(messageText: string, userId: string, roomId: string) {
       this._messageText = messageText;
       this._userId = userId;
       this._roomId = roomId;
     }
   
-    get messageId(): number {
+    get messageId(): string {
       return this._messageId;
     }
   
@@ -18,11 +18,11 @@ export class Message {
       return this._messageText;
     }
   
-    get userId(): number {
+    get userId(): string {
       return this._userId;
     }
   
-    get roomId(): number {
+    get roomId(): string {
       return this._roomId;
     }
   }

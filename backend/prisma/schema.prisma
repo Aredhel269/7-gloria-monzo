@@ -12,3 +12,33 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  userId       String    @id @default(cuid())
+  userName     String?
+  userPassword String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  messages     Message[] // Relació amb els missatges
+  rooms        Room[]    @relation("UserRooms") // Relació many-to-many amb les sales
+}
+
+model Room {
+  roomId    String    @id @default(cuid())
+  roomName  String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  messages  Message[] // Relació amb els missatges
+  users     User[]    @relation("UserRooms") // Relació many-to-many amb els usuaris
+}
+
+model Message {
+  messageId   String   @id @default(cuid())
+  messageText String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  userId      String
+  roomId      String
+  user        User     @relation(fields: [userId], references: [userId])
+  room        Room     @relation(fields: [roomId], references: [roomId])
+}

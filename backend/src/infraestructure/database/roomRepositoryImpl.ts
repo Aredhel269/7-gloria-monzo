@@ -11,20 +11,31 @@ export class RoomRepositoryImpl implements RoomRepository {
         roomName: room.roomName,
       },
     });
-    return new Room(newRoom.roomName);
+    if (typeof newRoom.roomName === 'string') {
+      return new Room(newRoom.roomName);
+    } else {
+      throw new Error('Room name must be a string');
+    }
   }
 
   async getRoomByName(roomName: string): Promise<Room | null> {
-    const room = await prisma.room.findUnique({
+    const room = await prisma.room.findFirst({
       where: {
-        roomName,
-      },
-    });
-    return room ? new Room(room.roomName) : null;
+        roomName: roomName
+      }
+    })
+    return room ? new Room(room.roomName ?? '') : null
   }
 
   async getAllRooms(): Promise<Room[]> {
     const rooms = await prisma.room.findMany();
-    return rooms.map((r: { roomName: string; }) => new Room(r.roomName));
+    return rooms.map(
+      (r: {
+        roomId: string
+        roomName: string | null
+        createdAt: Date
+        updatedAt: Date
+      }) => new Room(r.roomName || '')
+    )
   }
 }
