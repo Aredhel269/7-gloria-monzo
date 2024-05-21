@@ -15,8 +15,8 @@ datasource db {
 
 model User {
   userId       String    @id @default(cuid())
-  userName     String?
-  userPassword String
+  userName     String
+  password     String
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
   messages     Message[] // Relació amb els missatges

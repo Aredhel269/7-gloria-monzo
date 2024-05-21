@@ -4,8 +4,6 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-
-
 export class MessageRepositoryImpl implements MessageRepository {
   async createMessage(message: Message): Promise<Message> {
     const newMessage = await prisma.message.create({
