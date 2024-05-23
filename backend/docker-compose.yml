@@ -1,8 +1,9 @@
 services:
-  XatSprint7:
+  db:
   # Configuration
     image: mysql:latest
-    build: ./backend
+    container_name: containerSprint7
+    #build: ./backend
     restart: always
     environment:
       MYSQL_DATABASE: 'dbsprint7'
@@ -15,12 +16,26 @@ services:
     ports:
       # <Port exposed> : < MySQL Port running inside container>
       - '3306:3306'
-    expose:
+    #expose:
       # Opens port 3306 on the container
-      - '3306'
+      #- '3306'
       # Where our data will be persisted
     volumes:
-      - dbsprint7:/var/lib/mysql
+      - db_data:/var/lib/mysql
 # Names our volume
+  app:
+    build: .
+    container_name: containerapp
+    environment:
+      DATABASE_URL: mysql://usersprint7:1234@db:3306/dbsprint7
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+      - /app/node_modules
+
 volumes:
-  XatSprint7:
+  db_data:
+

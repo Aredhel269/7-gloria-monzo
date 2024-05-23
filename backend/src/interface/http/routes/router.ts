@@ -1,9 +1,9 @@
-import passport from 'passport';
 import UserController from '../../controllers/userController';
 import RoomController from '../../controllers/roomController';
-import "dotenv/config";
 import MessageController from '../../controllers/messageController'
+import passport from 'passport';
 import express from 'express';
+import "dotenv/config";
 
 const router = express.Router();
 
