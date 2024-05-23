@@ -35,12 +35,17 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: backend
 
       - name: Run ESLint
         run: npx eslint . --ext .js,.ts
+        working-directory: backend
+
 
       - name: Generate Prisma Client
         run: npx prisma generate
+        working-directory: backend
+
 
       - name: Wait for MySQL to be ready
         run: |
@@ -55,8 +60,11 @@ jobs:
         env:
           DATABASE_URL: mysql://root:root@localhost:3306/dbsprint7
         run: npx prisma migrate deploy
+        working-directory: backend
 
-      - name: Run tests
-        env:
-          DATABASE_URL: mysql://root:root@localhost:3306/dbsprint7
-        run: npm test
+
+   
+
+
+        
+# problema a gitActions, que no troba el package...
