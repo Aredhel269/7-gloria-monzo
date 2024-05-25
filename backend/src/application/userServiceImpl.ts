@@ -11,24 +11,31 @@ export class UserServiceImpl implements UserService {
     }
   
     async createUser(userName: string, password: string): Promise<User> {
+        console.log("Creating user with", { userName, password });
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User(userName, hashedPassword);
+        console.log("User created with hashed password:", newUser);
         return this.userRepository.createUser(newUser);
     }
   
     async getUserByUserName(userName: string): Promise<User | null> {
+        console.log("Getting user by username:", userName);
         return this.userRepository.getUserByUserName(userName);
     }
   
     async getAllUsers(): Promise<User[]> {
+        console.log("Getting all users");
         return this.userRepository.getAllUsers();
     }
   
     async login(userName: string, password: string): Promise<User | null> {
+        console.log("Logging in user with", { userName, password });
         const user = await this.userRepository.getUserByUserName(userName);
         if (user && await bcrypt.compare(password, user.password)) {
+            console.log("Login successful for user:", userName);
             return user;
         }
+        console.log("Login failed for user:", userName);
         return null;
     }
 }
