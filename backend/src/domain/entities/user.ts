@@ -5,10 +5,13 @@ export class User {
   rooms: string[] = []; // Llista de sales de xat a les quals pertany l'usuari
 
   constructor(userName: string, password: string) {
-      this._userName = userName;
-      this._password = password;
+    this._userName = userName;
+    this._password = password;
   }
 
+
+  // PQ NO S'IMPRIMEIX L'ID????
+  // MIRAR ON LI DIU QUE USER TE NAME PASSWORD I ROOMS
   get userId(): string {
     return this._userId
   }
@@ -21,11 +24,11 @@ export class User {
   }
   // Mètode per afegir una sala de xat a les sales de l'usuari
   addRoom(roomId: string) {
-      this.rooms.push(roomId);
+    this.rooms.push(roomId);
   }
 
   // Mètode per eliminar una sala de xat de les sales de l'usuari
   removeRoom(roomId: string) {
-      this.rooms = this.rooms.filter(room => room !== roomId);
+    this.rooms = this.rooms.filter(room => room !== roomId);
   }
 }

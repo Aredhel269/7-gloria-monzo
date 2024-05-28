@@ -14,7 +14,7 @@ export class UserRepositoryImpl implements UserRepository {
       }
     });
     console.log("User created in database:", newUser);
-    return new User(newUser.userName, newUser.password);
+    return new User( newUser.userName, newUser.password);
   }
 
   async getUserByUserName(userName: string): Promise<User | null> {

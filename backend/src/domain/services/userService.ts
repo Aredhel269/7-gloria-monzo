@@ -7,7 +7,7 @@ export interface UserService {
     createUser(userName: string, password: string): Promise<User>;
     getUserByUserName(userName: string): Promise<User | null>;
     getAllUsers(): Promise<User[]>;
-    login(userName: string, password: string): Promise<User | null>; // Afegim el mètode login
+    login(userName: string, password: string): Promise<User | null>; 
 }
 
 // Implementació del servei
@@ -20,7 +20,7 @@ export class UserServiceImpl implements UserService {
 
     async createUser(userName: string, password: string): Promise<User> {
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User(userName, hashedPassword);
+        const newUser = new User( userName, hashedPassword);
         return this.userRepository.createUser(newUser);
     }
 

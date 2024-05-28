@@ -38,28 +38,6 @@ export class UserServiceImpl implements UserService {
         console.log("Login failed for user:", userName);
         return null;
     }
-    async deleteUser(userId: string): Promise<void> {
-        console.log("Deleting user with userId:", userId);
-        return this.userRepository.deleteUser(userId);
-    }
-
-    async updateUser(
-        userId: string,
-        userName: string,
-        password: string
-    ): Promise<User | null> {
-        console.log('Updating user with', { userId, userName, password })
-        const hashedPassword = await bcrypt.hash(password, 10)
-        return (
-            this.userRepository.updateUser(userId, userName, hashedPassword)
-        )
-    }
 }
-/* async updateUser(userId: string, userName: string, password: string): Promise<User> {
-        console.log("Updating user with", { userId, userName, password });
-        const hashedPassword = await bcrypt.hash(password, 10);
-        return this.userRepository.updateUser(userId, userName, hashedPassword) || {
-            user: null,
-            error: null
-        };*/ 
+
 
