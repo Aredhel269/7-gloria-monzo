@@ -61,10 +61,3 @@ jobs:
           DATABASE_URL: mysql://root:root@localhost:3306/dbsprint7
         run: npx prisma migrate deploy
         working-directory: backend
-
-
-   
-
-
-        
-# problema a gitActions, que no troba el package...

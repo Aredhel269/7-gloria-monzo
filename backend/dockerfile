@@ -1,7 +1,10 @@
 # Utilitza una imatge de node com a base
 FROM node:latest
 
-# Estableix el directori de treball a /server
+# Instal·la el client de MySQL
+RUN apt-get update && apt-get install -y default-mysql-client
+
+# Estableix el directori de treball a /app
 WORKDIR /app
 
 # Copia el fitxer package.json i package-lock.json al directori de treball
@@ -23,4 +26,4 @@ RUN npx prisma generate
 EXPOSE 3000
 
 # Comanda per iniciar l'aplicació quan s'executi el contenidor
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]

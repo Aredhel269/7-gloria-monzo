@@ -1,0 +1,79 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Xat",
+    "collectionId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
+    "dateExported": "2024-05-27T08:35:07.242Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "90fdd2b2-10b5-4c1c-a708-ef7275f1a3b3",
+            "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
+            "containerId": "",
+            "name": "Register User (POST)",
+            "url": "http://localhost:3000/api/register",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-05-25T18:35:39.442Z",
+            "modified": "2024-05-26T10:34:01.642Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"userName\":\"Mr. Black\",\n  \"password\":\"666666\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "0bd31605-6ff9-40b0-a426-20142acd8daf",
+            "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
+            "containerId": "",
+            "name": "Create room (POST)",
+            "url": "http://localhost:3000/api/messages",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-05-25T18:40:57.126Z",
+            "modified": "2024-05-25T22:48:41.219Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"messageText\": \"Hola, aquest és un missatge de prova.\",\n  \"userId\": \"12345\",\n  \"roomId\": \"67890\"\n}\n",
+                "form": []
+            }
+        },
+        {
+            "_id": "128d4c90-77b6-4aca-a8d3-0f55100a101e",
+            "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
+            "containerId": "",
+            "name": "GET room by room name",
+            "url": "http://localhost:3000/api/rooms/off-topic",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-05-25T18:43:43.925Z",
+            "modified": "2024-05-25T18:45:21.387Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"roomName\":\"general\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "059f4b41-6981-48f9-a9a6-c895e142cdd0",
+            "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
+            "containerId": "",
+            "name": "Create room (POST) Copy",
+            "url": "http://localhost:3000/api/rooms",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-05-25T22:47:19.263Z",
+            "modified": "2024-05-25T22:47:19.263Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"roomName\":\"rools\"\n}",
+                "form": []
+            }
+        }
+    ],
+    "ref": "NDibbWIKLxXhYjuhZahHwyyloH9lRTy4wEXGl0ncSZIb9CO3YK-oZ-Z_ogg1oZPn-ydWoGvuAKOWQfzTrBCL0Q"
+}

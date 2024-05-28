@@ -119,3 +119,13 @@ src/
 └── server.ts 
 
 
+Make sure that your Docker containers are running. You can check this by running docker ps in your terminal. If your containers are not running, you can start them by running docker-compose up -d.
+
+Check that your MySQL container is running and accessible. You can do this by running docker exec -it containerSprint7 mysql -u usersprint7 -p in your terminal. This will open a MySQL prompt inside your MySQL container. If you are able to connect, you can then run SELECT COUNT(*) FROM user; 
+to verify that your user table exists and has data.
+
+Check that your DATABASE_URL environment variable is correctly set in your Node.js container. You can do this by running 
+docker exec -it containerapp printenv 
+in your terminal. This will show you all of the environment variables inside your Node.js container. Make sure that DATABASE_URL is set to mysql://usersprint7:1234@db:3306/dbsprint7.
+
+Check that your Prisma schema file is correctly configured to use MySQL. You can do this by opening your prisma/schema.prisma file and making sure that it includes a line like provider = "mysql".

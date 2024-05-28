@@ -12,9 +12,9 @@ export class UserRepositoryImpl implements UserRepository {
         userName: user.userName,
         password: user.password
       }
-    })
+    });
     console.log("User created in database:", newUser);
-    return new User(newUser.userName, newUser.password)
+    return new User(newUser.userName, newUser.password);
   }
 
   async getUserByUserName(userName: string): Promise<User | null> {
@@ -38,4 +38,27 @@ export class UserRepositoryImpl implements UserRepository {
       updatedAt: Date;
     }) => new User(u.userName || '', u.password || ''));
   }
+
+  async updateUser(userId: string, userName: string, password: string): Promise<User | null> {
+    console.log("Updating user in database:", { userId, userName, password });
+    const updatedUser = await prisma.user.update({
+      where: { userId },
+      data: {
+        userName,
+        password
+      }
+    });
+    console.log("User updated in database:", updatedUser);
+    return updatedUser ? new User(updatedUser.userName, updatedUser.password || '') : null;
+  }
+
+  async deleteUser(userId: string): Promise<void> {
+    console.log("Deleting user from database:", userId);
+    await prisma.user.delete({
+      where: { userId }
+    });
+    console.log("User deleted from database");
+  }
 }
+
+
