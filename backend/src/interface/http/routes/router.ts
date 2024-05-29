@@ -12,11 +12,11 @@ router.post('/login', UserController.loginUser);
 router.get('/users/:userName', UserController.getUserByUserName);
 router.get('/users', UserController.getAllUsers);
 
-router.post('/rooms', RoomController.createRoom);
+router.post('/newRoom', RoomController.createRoom);
 router.get('/rooms/:roomName', RoomController.getRoomByName);
 router.get('/rooms',  RoomController.getAllRooms);
 
-router.post('/messages',  MessageController.createMessage);
+router.post('/newMessage',  MessageController.createMessage);
 router.get('/messages/:roomId', MessageController.getMessagesByRoomId);
 
 export default router;
