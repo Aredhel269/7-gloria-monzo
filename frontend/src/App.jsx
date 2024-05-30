@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 
 import LoginPage from './components/Login/LoginPage';  
 import RegisterPage from './components/Register/RegisterPage';
-import ChatRoomPage from './components/ChatRoom';  
+import ChatRoomPage from './components/ChatRoom/ChatRoom';  
 
 function App() {
   return (

@@ -46,11 +46,15 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log("A user disconnected");
+    io.emit("message", {
+      user: "admin",
+      text: `A user has disconnected`,
+    });
   });
-});
 
-app.use("/api", router);
+  app.use("/api", router);
 
-server.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
+  server.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
+})
