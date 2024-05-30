@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function PasswordInput({ password, setPassword }) {
+function PasswordInputRegister({ password, setPassword }) {
   return (
     <div>
       <label>Contrasenya:</label>
@@ -15,9 +15,9 @@ function PasswordInput({ password, setPassword }) {
   );
 }
 
-PasswordInput.propTypes = {
+PasswordInputRegister.propTypes = {
   password: PropTypes.string.isRequired,
   setPassword: PropTypes.func.isRequired,
 };
 
-export default PasswordInput;
+export default PasswordInputRegister;

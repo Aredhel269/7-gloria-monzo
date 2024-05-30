@@ -1,7 +1,7 @@
 import React from 'react';
 
-function SubmitButton() {
+function SubmitButtonLogin() {
   return <button type="submit">Iniciar sessió</button>;
 }
 
-export default SubmitButton;
+export default SubmitButtonLogin;

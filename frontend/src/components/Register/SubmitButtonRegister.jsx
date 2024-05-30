@@ -1,7 +1,7 @@
 import React from 'react';
 
-function SubmitButton() {
+function SubmitButtonRegister() {
   return <button type="submit">Registrar-se</button>;
 }
 
-export default SubmitButton;
+export default SubmitButtonRegister;

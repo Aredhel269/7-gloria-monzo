@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function UsernameInput({ username, setUsername }) {
+function UsernameInputRegister({ username, setUsername }) {
   return (
     <div>
       <label>Nom d'usuari:</label>
@@ -15,9 +15,9 @@ function UsernameInput({ username, setUsername }) {
   );
 }
 
-UsernameInput.propTypes = {
+UsernameInputRegister.propTypes = {
   username: PropTypes.string.isRequired,
   setUsername: PropTypes.func.isRequired,
 };
 
-export default UsernameInput;
+export default UsernameInputRegister;
