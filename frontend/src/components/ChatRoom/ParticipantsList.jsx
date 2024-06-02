@@ -1,11 +1,12 @@
-import React from 'react';
+import React from "react";
 
-function ParticipantsList() {
-  const participants = ['Usuari 1', 'Usuari 2', 'Usuari 3']; // Exemple de llista de participants
+const ParticipantsList = () => {
+  // Aquí hauríem de fer una petició al servidor per obtenir la llista de participants
+  const participants = ["User 1", "User 2", "User 3"];
 
   return (
     <div className="participants-list">
-      <h3>Participants</h3>
+      <h4>Participants:</h4>
       <ul>
         {participants.map((participant, index) => (
           <li key={index}>{participant}</li>
@@ -13,6 +14,6 @@ function ParticipantsList() {
       </ul>
     </div>
   );
-}
+};
 
 export default ParticipantsList;

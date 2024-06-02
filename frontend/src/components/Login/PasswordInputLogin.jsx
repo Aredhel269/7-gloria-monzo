@@ -1,23 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
 
-function PasswordInputLogin({ password, setPassword }) {
+const PasswordInputLogin = ({ password, setPassword }) => {
   return (
-    <div>
-      <label>Contrasenya:</label>
+    <div className="
+form-group">
+      <label htmlFor="password">Password:</label>
       <input
         type="password"
+        id="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
       />
     </div>
   );
-}
-
-PasswordInputLogin.propTypes = {
-  password: PropTypes.string.isRequired,
-  setPassword: PropTypes.func.isRequired,
 };
 
 export default PasswordInputLogin;

@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
-import ChatArea from './ChatArea';
-import MessageInput from './MessageInput';
-import ParticipantsList from './ParticipantsList';
-import RoomHeader from './RoomHeader';
-import './ChatRoom.css';
+import React, { useState, useEffect } from "react";
+import { io } from "socket.io-client";
+import ChatArea from "./ChatArea";
+import MessageInput from "./MessageInput";
+import ParticipantsList from "./ParticipantsList";
+import RoomHeader from "./RoomHeader";
+import "./ChatRoom.css";
 
-const socket = io('http://localhost:3000');
+const socket = io("http://localhost:3000");
 
 function ChatRoom() {
   const [messages, setMessages] = useState([]);
-  const roomName = 'General';  // Eliminat setRoomName
+  const roomName = "General"; // Eliminat setRoomName
 
   useEffect(() => {
-    socket.emit('join', roomName);
+    socket.emit("join", roomName);
 
-    socket.on('message', (message) => {
+    socket.on("message", (message) => {
       setMessages((prevMessages) => [...prevMessages, message]);
     });
 
@@ -25,8 +25,8 @@ function ChatRoom() {
   }, [roomName]);
 
   const sendMessage = (message) => {
-    const user = 'Current User'; // Aquest seria el nom de l'usuari actual
-    socket.emit('chat', { room: roomName, user, text: message });
+    const user = "Current User"; // Aquest seria el nom de l'usuari actual
+    socket.emit("chat", { room: roomName, user, text: message });
   };
 
   return (

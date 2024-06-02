@@ -1,23 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
 
-function UsernameInputLogin({ username, setUsername }) {
+const UsernameInputLogin = ({ username, setUsername }) => {
   return (
-    <div>
-      <label>Nom d'usuari:</label>
+    <div className="form-group">
+      <label htmlFor="username">Username:</label>
       <input
         type="text"
+        id="username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         required
       />
     </div>
   );
-}
-
-UsernameInputLogin.propTypes = {
-  username: PropTypes.string.isRequired,
-  setUsername: PropTypes.func.isRequired,
 };
 
 export default UsernameInputLogin;

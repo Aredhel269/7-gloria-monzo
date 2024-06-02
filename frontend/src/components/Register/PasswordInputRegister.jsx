@@ -1,23 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
 
-function PasswordInputRegister({ password, setPassword }) {
+const PasswordInputRegister = ({ password, setPassword }) => {
   return (
-    <div>
-      <label>Contrasenya:</label>
-      <input 
-        type="password" 
-        value={password} 
-        onChange={(e) => setPassword(e.target.value)} 
-        required 
+    <div className="form-group">
+      <label htmlFor="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
       />
     </div>
   );
-}
-
-PasswordInputRegister.propTypes = {
-  password: PropTypes.string.isRequired,
-  setPassword: PropTypes.func.isRequired,
 };
-
-export default PasswordInputRegister;
