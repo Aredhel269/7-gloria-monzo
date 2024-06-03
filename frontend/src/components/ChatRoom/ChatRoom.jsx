@@ -1,45 +1,55 @@
 import React, { useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
-import ChatArea from './ChatArea';
-import MessageInput from './MessageInput';
-import ParticipantsList from './ParticipantsList';
-import RoomHeader from './RoomHeader';
+import socketClient from '../../services/socketClient';
 import './ChatRoom.css';
-
-const socket = io('http://localhost:3000');
 
 function ChatRoom() {
   const [messages, setMessages] = useState([]);
-  const roomName = 'General';  // Eliminat setRoomName
+  //const [message, setMessage] = useState('');
+  const [input, setInput] = useState('')
 
   useEffect(() => {
-    socket.emit('join', roomName);
 
-    socket.on('message', (message) => {
+    socketClient.on('message', (message) => {
       setMessages((prevMessages) => [...prevMessages, message]);
     });
 
-    return () => {
-      socket.disconnect();
-    };
-  }, [roomName]);
+    socketClient.on('user-connected', (user) => {
+      setMessages((prevMessages) => [...prevMessages, { user: 'System', text: `${user} has joined the room` }]);
+    });
 
-  const sendMessage = (message) => {
-    const user = 'Current User'; // Aquest seria el nom de l'usuari actual
-    socket.emit('chat', { room: roomName, user, text: message });
-  };
+    socketClient.on('user-disconnected', (user) => {
+      setMessages((prevMessages) => [...prevMessages, { user: 'System', text: `${user} has left the room` }]);
+    });
+
+    return () => {
+      socketClient.off('message');
+      socketClient.off('user-connected');
+      socketClient.off('user-disconnected');
+    };
+  }, []);
+
+  const sendMessage = () => {
+    if (input.trim()){
+    socketClient.emit('message', input );
+    setInput('');
+  }};
 
   return (
-    <div className="chatroom-container">
-      <RoomHeader roomName={roomName} />
-      <div className="chatroom-body">
-        <ParticipantsList />
-        <div className="chat-section">
-          <ChatArea messages={messages} />
-          <MessageInput onSendMessage={sendMessage} />
+    
+      <div className="chat-room">
+        <div className="messages">
+          {messages.map((msg, index) => (
+            <div key={index}>{msg}</div>
+          ))}
         </div>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+        />
+        <button onClick={sendMessage}>Send</button>
       </div>
-    </div>
   );
 }
 

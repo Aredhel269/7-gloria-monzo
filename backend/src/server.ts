@@ -1,7 +1,7 @@
 import express from "express";
-import socketio from "socket.io";
-import dotenv from "dotenv";
+import { Server } from "socket.io";
 import http from "http";
+import dotenv from "dotenv";
 import router from "./interface/http/routes/router";
 import passport from "passport";
 
@@ -18,7 +18,14 @@ app.get("/", (req, res) => {
 });
 
 const server = http.createServer(app);
-const io = new socketio.Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  },
+  pingTimeout: 60000, // Ajusta el temps de ping si és necessari
+  pingInterval: 25000
+});
 
 io.on("connection", (socket) => {
   console.log("A user connected");
@@ -48,13 +55,13 @@ io.on("connection", (socket) => {
     console.log("A user disconnected");
     io.emit("message", {
       user: "admin",
-      text: `A user has disconnected`,
+      text: "A user has disconnected",
     });
   });
+});
 
-  app.use("/api", router);
+app.use("/api", router);
 
-  server.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
-  });
-})
+server.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+});

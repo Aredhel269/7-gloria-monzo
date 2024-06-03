@@ -1,10 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-
-import LoginPage from './components/Login/LoginPage';  
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginPage from './components/Login/LoginPage';
 import RegisterPage from './components/Register/RegisterPage';
-import ChatRoomPage from './components/ChatRoom/ChatRoom';  
-
+import ChatRoom from './components/ChatRoom/ChatRoom';
+// QUE PASSSA AMB EL USE NAVIGATE?? 
 function App() {
   return (
     <Router>
@@ -12,8 +11,10 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/chat" element={<ChatRoomPage />} />
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="/chat" element={<ChatRoom />} />
+          {/* </Routes><Route path="/* element={<NAVIGATE />} /> */}
+
+          {/* Afegeix altres rutes si cal */}
         </Routes>
       </div>
     </Router>

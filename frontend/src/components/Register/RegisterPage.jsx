@@ -1,28 +1,25 @@
-// src/components/Register/RegisterPage.jsx
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import UserNameInputRegister from './UserNameInputRegister';
-import PasswordInputRegister from './PasswordInputRegister';
-import SubmitButtonRegister from './SubmitButtonRegister';
+import { useNavigate } from 'react-router-dom';
+import socketClient from '../../services/socketClient';
+//import './RegisterPage.css';
 
 function RegisterPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const response = await axios.post('http://localhost:3001/api/register', {
-        username,
+        username: username,
         password
       });
       console.log('Resposta del backend:', response.data);
-      setSuccess(true);
-      navigate('/login'); // Rutes relatives
+      socketClient.emit('user-connected', username); // Notifica que el nou usuari s'ha registrat i connectat
+      navigate('/login');
     } catch (error) {
       console.error('Error al registrar:', error);
       setError('Hi ha hagut un error en registrar. Si us plau, intenta-ho de nou.');
@@ -30,18 +27,27 @@ function RegisterPage() {
   };
 
   return (
-    <div>
+    <div className="register-page">
       <h2>Register</h2>
-      {success && <p style={{ color: 'green' }}>El registre s'ha completat amb èxit! Ja pots iniciar sessió.</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleSubmit}>
-        <UserNameInputRegister username={username} setUsername={setUsername} />
-        <PasswordInputRegister password={password} setPassword={setPassword} />
-        <SubmitButtonRegister />
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit">Register</button>
       </form>
-      <p>Ja tens un compte? <Link to="/login">Inicia sessió</Link></p>
+      {error && <p>{error}</p>}
     </div>
   );
 }
 
 export default RegisterPage;
+
