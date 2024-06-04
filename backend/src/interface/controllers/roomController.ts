@@ -1,41 +1,55 @@
-import { Request, Response } from 'express';
+import { FastifyRequest, FastifyReply } from "fastify";
 import { RoomServiceImpl } from '../../application/roomServiceImpl';
 import { RoomRepositoryImpl } from '../../infraestructure/database/roomRepositoryImpl';
 
 const roomRepository = new RoomRepositoryImpl();
 const roomService = new RoomServiceImpl(roomRepository);
 
-export default class RoomController {
-    static async createRoom(req: Request, res: Response) {
-        try {
-            const { roomName } = req.body;
-            const room = await roomService.createRoom(roomName);
-            res.status(201).json(room);
-        } catch (error) {
-            res.status(500).json({ error: 'Failed to create room' });
-        }
+class RoomController {
+  async createRoom(request: FastifyRequest, reply: FastifyReply) {
+    const { roomName } = request.body as { roomName: string };
+    console.log("createRoom called with", { roomName });
+    try {
+      const room = await roomService.createRoom(roomName);
+      console.log("Room created:", room);
+      const roomWithId = { ...room, id: room.roomId };
+      reply.status(201).send(roomWithId);
+    } catch (error) {
+      console.error("Error creating room:", error);
+      reply.status(500).send({ error: 'Failed to create room' });
     }
+  }
 
-    static async getRoomByName(req: Request, res: Response) {
-        try {
-            const { roomName } = req.params;
-            const room = await roomService.getRoomByName(roomName);
-            if (!room) {
-                res.status(404).json({ error: 'Room not found' });
-            } else {
-                res.status(200).json(room);
-            }
-        } catch (error) {
-            res.status(500).json({ error: 'Failed to get room' });
-        }
+  async getRoomByName(request: FastifyRequest, reply: FastifyReply) {
+    const { roomName } = request.params as { roomName: string };
+    console.log("getRoomByName called with", { roomName });
+    try {
+      const room = await roomService.getRoomByName(roomName);
+      if (!room) {
+        console.log("Room not found:", roomName);
+        reply.status(404).send({ error: 'Room not found' });
+      } else {
+        console.log("Room found:", room);
+        reply.status(200).send(room);
+      }
+    } catch (error) {
+      console.error("Error getting room by name:", error);
+      reply.status(500).send({ error: 'Failed to get room' });
     }
+  }
 
-    static async getAllRooms(req: Request, res: Response) {
-        try {
-            const rooms = await roomService.getAllRooms();
-            res.status(200).json(rooms);
-        } catch (error) {
-            res.status(500).json({ error: 'Failed to get rooms' });
-        }
+  async getAllRooms(request: FastifyRequest, reply: FastifyReply) {
+    console.log("getAllRooms called");
+    try {
+      const rooms = await roomService.getAllRooms();
+      console.log("Rooms fetched:", rooms);
+      const roomsWithIds = rooms.map(room => ({ ...room, id: room.roomId }));
+      reply.status(200).send(roomsWithIds);
+    } catch (error) {
+      console.error("Error getting all rooms:", error);
+      reply.status(500).send({ error: "Error getting all rooms" });
     }
+  }
 }
+
+export default new RoomController();

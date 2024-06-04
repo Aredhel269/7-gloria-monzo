@@ -23,11 +23,15 @@
     "url": "https://github.com/Aredhel269/Sprint7/issues"
   },
   "dependencies": {
+    "@fastify/cors": "^9.0.1",
     "@prisma/client": "^5.14.0",
     "@typescript-eslint/parser": "^7.10.0",
+    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
+    "docker-compose": "^0.24.8",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "fastify": "^4.27.0",
     "mysql": "^2.18.1",
     "prisma-case-format": "^2.2.1",
     "socket.io": "^4.7.5",

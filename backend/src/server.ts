@@ -1,24 +1,33 @@
-import express from "express";
-import socketio from "socket.io";
-import dotenv from "dotenv";
-import http from "http";
-import router from "./interface/http/routes/router";
-import passport from "passport";
+import fastify from 'fastify';
+import { Server } from 'socket.io';
+import dotenv from 'dotenv';
+import http from 'http';
+import registerRoutes from './interface/http/routes/messageRoutes'
+import fastifyCors from '@fastify/cors';
 
 dotenv.config();
 
-const app = express();
+const app = fastify();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
-app.use(passport.initialize());
-
-app.get("/", (req, res) => {
-  res.send("Benvingut a la pàgina principal!");
+// Middleware de JSON i CORS
+app.register(fastifyCors, { 
+  origin: '*' 
 });
 
-const server = http.createServer(app);
-const io = new socketio.Server(server);
+app.get("/", (req, reply) => {
+  reply.send("Benvingut a la pàgina principal!");
+});
+
+app.get('/products/:id', (req, reply) => {
+  reply.send({ msg: 'This is CORS-enabled for all origins!' });
+});
+
+// Registre de rutes
+registerRoutes(app);
+
+const server = http.createServer(app.server);
+const io = new Server(server);
 
 io.on("connection", (socket) => {
   console.log("A user connected");
@@ -52,9 +61,10 @@ io.on("connection", (socket) => {
     });
   });
 
-  app.use("/api", router);
-
   server.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
   });
-})
+});
+
+
+
