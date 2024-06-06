@@ -52,7 +52,7 @@ export default function Register() {
               />
             </div>
 
-            <button className="button mt-20" type="submit">Register</button>
+            <button className="button mt-20" type="submit" onClick={handleRegister}>Register</button>
           </form>
         )}
       </div>
