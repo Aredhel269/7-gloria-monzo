@@ -40,7 +40,7 @@ export default function Join() {
               onChange={(event) => setPassword(event.target.value)} 
             />
           </div>
-          <button className="button mt-20" type="submit">Login</button>
+          <button className="button mt-20" type="submit" onClick={handleLogin}>Login</button>
         </form>
         <div className="mt-20">
           <Link to="/register">Don't have an account? Register here</Link>

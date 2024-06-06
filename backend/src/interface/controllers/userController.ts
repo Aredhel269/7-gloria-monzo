@@ -6,19 +6,24 @@ const userRepository = new UserRepositoryImpl();
 const userService = new UserServiceImpl(userRepository);
 
 class UserController {
+ 
   async registerUser(request: FastifyRequest, reply: FastifyReply) {
     const { userName, password } = request.body as { userName: string, password: string };
+  
     console.log("registerUser called with", { userName, password });
+  
     try {
       const user = await userService.createUser(userName, password);
       console.log("User created:", user);
-      const userWithId = { ...user, id: user.userId };
-      reply.status(201).send(userWithId);
+  
+      // Retorna un missatge d'èxit amb l'usuari creat
+      reply.status(201).send({ success: true, user });
     } catch (error) {
       console.error("Error registering user:", error);
       reply.status(500).send({ error: "Error registering user" });
     }
   }
+  
 
   async loginUser(request: FastifyRequest, reply: FastifyReply) {
     const { userName, password } = request.body as { userName: string, password: string };

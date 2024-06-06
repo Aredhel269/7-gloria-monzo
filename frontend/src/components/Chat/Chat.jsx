@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import queryString from 'query-string';
+import queryString from "query-string";
 import io from "socket.io-client";
 
 import TextContainer from '../TextContainer/TextContainer';
@@ -10,7 +10,6 @@ import Input from '../Input/Input';
 
 import './Chat.css';
 
-const ENDPOINT = 'https://project-chat-application.herokuapp.com/';
 
 let socket;
 
@@ -22,10 +21,11 @@ const Chat = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
 
+  //useEffect per a la connexió inicial del socket i unir-se a una habitació
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
 
-    socket = io(ENDPOINT);
+    socket = io('http://localhost:3000');
 
     setRoom(room);
     setName(name);
@@ -37,6 +37,7 @@ const Chat = () => {
     });
   }, [location.search]);
 
+//useEffect per rebre missatges i dades de l'habitació
   useEffect(() => {
     socket.on('message', message => {
       setMessages(messages => [...messages, message]);
@@ -54,7 +55,7 @@ const Chat = () => {
       socket.emit('sendMessage', message, () => setMessage(''));
     }
   };
-
+//Renderització del component
   return (
     <div className="outerContainer">
       <div className="container">

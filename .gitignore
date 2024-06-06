@@ -132,3 +132,24 @@ dist
 # VSCode
 .vscode
 *.txt
+
+# VS Code
+# https://code.visualstudio.com/docs/editor/codebasics#_settings-sync
+.vscode-test/
+
+# Code-server
+.code-server/
+
+# yarn v1
+.pnp.*
+
+# pnpm
+.pnpm
+
+# Cypress Cucumber
+features/step_definitions
+
+# End-to-end test framework
+cypress/
+
++
