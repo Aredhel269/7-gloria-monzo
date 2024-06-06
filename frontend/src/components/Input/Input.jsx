@@ -1,10 +1,9 @@
-import React, { useState } from 'react'; // Import React i useState
-
+import React, { useState } from 'react';
 import './Input.css'; // Importar CSS (si cal)
 
-const Input = ({ setMessage, sendMessage, message }) => {
+const Input = ({ setMessage, sendMessage, message = '' }) => { // Utilitzar un valor per defecte per a 'message'
   // Utilitzar useState per gestionar l'estat del missatge
-  const [messageState, setMessageState] = useState(message || '');
+  const [messageState, setMessageState] = useState(message);
 
   // Funció per actualitzar l'estat del missatge
   const handleChange = (event) => {
@@ -19,7 +18,7 @@ const Input = ({ setMessage, sendMessage, message }) => {
   };
 
   // Funció per enviar el missatge amb la tecla Enter
-  const handleKeyPress = (event) => {
+  const handleKeyDown = (event) => { // Utilitzar onKeyDown en lloc de onKeyPress
     if (event.key === 'Enter') {
       handleSubmit(event);
     }
@@ -33,7 +32,7 @@ const Input = ({ setMessage, sendMessage, message }) => {
         placeholder="Type a message..."
         value={messageState}
         onChange={handleChange}
-        onKeyPress={handleKeyPress}
+        onKeyDown={handleKeyDown} 
       />
       <button className="sendButton" type="submit">Send</button>
     </form>

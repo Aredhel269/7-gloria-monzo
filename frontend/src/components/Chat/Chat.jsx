@@ -10,18 +10,17 @@ import Input from '../Input/Input';
 
 import './Chat.css';
 
-
 let socket;
 
 const Chat = () => {
-  const location = useLocation();  // Hook de react-router-dom
+  const location = useLocation(); // Hook de react-router-dom
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
   const [users, setUsers] = useState('');
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
 
-  //useEffect per a la connexió inicial del socket i unir-se a una habitació
+  // useEffect per a la connexió inicial del socket i unir-se a una habitació
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
 
@@ -35,12 +34,12 @@ const Chat = () => {
         alert(error);
       }
     });
-  }, [location.search]);
+  }, [location]);
 
-//useEffect per rebre missatges i dades de l'habitació
+  // useEffect per rebre missatges i dades de l'habitació
   useEffect(() => {
-    socket.on('message', message => {
-      setMessages(messages => [...messages, message]);
+    socket.on('message', (message) => {
+      setMessages((messages) => [...messages, message]);
     });
 
     socket.on("roomData", ({ users }) => {
@@ -48,6 +47,7 @@ const Chat = () => {
     });
   }, []);
 
+  // Funció per enviar un missatge
   const sendMessage = (event) => {
     event.preventDefault();
 
@@ -55,7 +55,23 @@ const Chat = () => {
       socket.emit('sendMessage', message, () => setMessage(''));
     }
   };
-//Renderització del component
+
+  // Netejar el socket en desmuntar el component
+  useEffect(() => {
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  // Maneig d'errors de connexió del socket
+  useEffect(() => {
+    socket.on('connect_error', (err) => {
+      console.error('socket connection error:', err);
+      // Mostrar un missatge d'error a l'usuari
+    });
+  }, []);
+
+  // Renderització del component
   return (
     <div className="outerContainer">
       <div className="container">
