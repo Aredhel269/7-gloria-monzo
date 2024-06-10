@@ -2,9 +2,14 @@ import React, { useState, useEffect } from 'react';
 import InfoBar from '../InfoBar/InfoBar';
 import Messages from '../Messages/Messages';
 import TextContainer from '../TextContainer/TextContainer';
-import socket from 'socket.io-client';
+import io from 'socket.io-client';
+import queryString from 'query-string';
+import { useLocation } from 'react-router-dom';
+
+let socket;
 
 const Chat = () => {
+  const location = useLocation();
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
   const [users, setUsers] = useState("");
@@ -12,39 +17,46 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    const queryString = require("query-string");
-    const { name, room } = queryString.parse(window.location.search);
+    const { name, room } = queryString.parse(location.search);
 
-    socket.emit("join", { name, room }, (error) => {
+    // Inicialitza el socket amb l'URL del servidor
+    socket = io('http://localhost:3001'); // Canvia la URL segons sigui necessari
+
+    setName(name);
+    setRoom(room);
+
+    socket.emit('join', { name, room }, (error) => {
       if (error) {
         alert(error);
       }
     });
 
-    setName(name);
-    setRoom(room);
-
     return () => {
-      socket.emit("disconnect");
+      socket.emit('disconnect');
       socket.off();
     };
-  }, []);
+  }, [location.search]);
 
   useEffect(() => {
-    socket.on("message", (message) => {
+    socket.on('message', (message) => {
       setMessages((messages) => [...messages, message]);
     });
 
-    socket.on("roomData", ({ users }) => {
+    socket.on('roomData', ({ users }) => {
       setUsers(users);
     });
+
+    return () => {
+      socket.off('message');
+      socket.off('roomData');
+    };
   }, []);
 
   const sendMessage = (event) => {
     event.preventDefault();
 
     if (message) {
-      socket.emit("sendMessage", message, () => setMessage(""));
+      socket.emit('sendMessage', message, () => setMessage(''));
     }
   };
 
@@ -57,6 +69,7 @@ const Chat = () => {
           users={users}
           message={message}
           sendMessage={sendMessage}
+          setMessage={setMessage}
         />
       </div>
     </div>
