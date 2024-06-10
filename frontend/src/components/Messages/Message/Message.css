@@ -1,32 +1,30 @@
 .messageBox {
-  background-color: #F3F3F3;
-  border-radius: 20px;
-  padding: 5px 20px;
-  color: white;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border-bottom: 1px solid #333;
 }
 
 .messageText {
-  width: 100%;
-  letter-spacing: 0;
-  float: left;
-  font-size: 1.1em;
-  word-wrap: break-word;
+  font-size: 16px;
+  color: #333;
 }
-
 .messageContainer {
   display: flex;
-  justify-content: flex-end;
-  padding: 0 5%;
-  margin-top: 3px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border-bottom: 1px solid #333;
 }
 
 .sentText {
-  display: flex;
-  align-items: center;
-  font-family: Helvetica;
-  color: #828282;
-  letter-spacing: 0.3px;
+  font-size: 14px;
+  color: #666;
 }
 
 .pl-10 {
@@ -54,9 +52,9 @@
 }
 
 .backgroundBlue {
-  background: #2979FF;
+  background: #2979ff;
 }
 
 .backgroundLight {
-  background: #F3F3F3;
+  background: #f3f3f3;
 }

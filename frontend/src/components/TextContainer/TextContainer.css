@@ -9,13 +9,23 @@
 
 .activeContainer {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 50%;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border-bottom: 1px solid #333;
 }
 
 .activeItem {
   display: flex;
+  justify-content: center;
   align-items: center;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border-bottom: 1px solid #333;
 }
 
 .activeContainer img {
@@ -30,4 +40,10 @@
   .textContainer {
     display: none;
   }
+}
+
+.onlineIcon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
 }

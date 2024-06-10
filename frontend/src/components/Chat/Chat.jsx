@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import InfoBar from '../InfoBar/InfoBar';
+import { useLocation } from "react-router-dom";
 import Messages from '../Messages/Messages';
 import TextContainer from '../TextContainer/TextContainer';
 import io from 'socket.io-client';
 import queryString from 'query-string';
-import { useLocation } from 'react-router-dom';
 
 let socket;
 
@@ -20,7 +20,7 @@ const Chat = () => {
     const { name, room } = queryString.parse(location.search);
 
     // Inicialitza el socket amb l'URL del servidor
-    socket = io('http://localhost:3001'); // Canvia la URL segons sigui necessari
+    socket = io('http://localhost:3000'); // Canvia la URL segons sigui necessari
 
     setName(name);
     setRoom(room);
@@ -77,3 +77,8 @@ const Chat = () => {
 };
 
 export default Chat;
+
+
+
+// mirant un possible error de les extensions
+// pq els botons no fan res??

@@ -20,6 +20,7 @@ InfoBar.displayName = 'InfoBar';
 export default InfoBar;
 
 
+
 /*
 import React from 'react';
 

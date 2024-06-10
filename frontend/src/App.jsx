@@ -1,17 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Join from './components/Join/Join';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './components/Login/Login';
 import Chat from './components/Chat/Chat';
 import Register from './components/Register/Register';
 
 const App = () => (
   <Router>
     <div className="app">
-      <Switch>
-        <Route path="/" exact component={Join} />
-        <Route path="/chat" component={Chat} />
-        <Route path="/register" component={Register} />
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/chat" element={<Chat />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </div>
   </Router>
 );

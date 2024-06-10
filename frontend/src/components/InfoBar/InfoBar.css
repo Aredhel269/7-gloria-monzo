@@ -1,28 +1,23 @@
-.infoBar {
+.infoBar-container {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  background: #2979FF;
-  border-radius: 4px 4px 0 0;
-  height: 60px;
-  width: 100%;
+  align-items: center;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border-bottom: 1px solid #333;
 }
 
 .leftInnerContainer {
   flex: 0.5;
   display: flex;
   align-items: center;
-  margin-left: 5%;
-  color: white;
+  justify-content: center;
 }
 
 .rightInnerContainer {
-  display: flex;
   flex: 0.5;
+  display: flex;
+  align-items: center;
   justify-content: flex-end;
-  margin-right: 5%;
-}
-
-.closeIcon {
-  margin-right: 5%;
 }
