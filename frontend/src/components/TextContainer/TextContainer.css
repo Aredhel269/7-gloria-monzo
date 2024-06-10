@@ -9,15 +9,13 @@
 
 .activeContainer {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 20px;
+  align-items: center;
+  margin-bottom: 50%;
 }
 
 .activeItem {
   display: flex;
   align-items: center;
-  margin-top: 10px;
 }
 
 .activeContainer img {
@@ -25,25 +23,11 @@
 }
 
 .textContainer h1 {
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 
-.textContainer h2 {
-  margin-bottom: 10px;
-}
-
-@media (max-width: 1200px) {
+@media (min-width: 320px) and (max-width: 1200px) {
   .textContainer {
     display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .textContainer {
-    margin-left: 20px;
-  }
-
-  .activeItem img {
-    padding-left: 5px;
   }
 }

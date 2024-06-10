@@ -1,17 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link for navigation
-
-import './InfoBar.css';
 
 const InfoBar = ({ room }) => (
-  <div className="info-bar">
-    <div className="info-bar__left-inner-container">
+  <div className="infoBar">
+    <div className="leftInnerContainer">
       <h3>{room}</h3>
     </div>
-    <div className="info-bar__right-inner-container">
-      <Link to="/">
-        <i className="fa fa-close"></i> {/* Assuming you have FontAwesome */}
-      </Link>
+    <div className="rightInnerContainer">
+      <a href="/">
+        <img src={require("./closeIcon.png")} alt="close icon" />
+      </a>
     </div>
   </div>
 );

@@ -1,70 +1,54 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
-import axios from 'axios';
+import { Link, useHistory } from 'react-router-dom';
+import socket from 'socket.io-client'
 
-import './Register.css';
-
-export default function Register() {
-  const [userName, setUserName] = useState('');
+const Register = () => {
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [registrationError, setRegistrationError] = useState(null); // Canviem el nom per error clarity
-  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [error, setError] = useState('');
+  const history = useHistory();
 
-  const handleRegister = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:3000/register', { userName, password });
-      if (response.data.success) {
-        setRegistrationSuccess(true);
-        setRegistrationError(null); // Reseteja l'error en cas d'èxit
+    socket.emit('register', { username, password }, (response) => {
+      if (response.error) {
+        setError(response.error);
       } else {
-        setRegistrationError(response.data.message || "Registration failed. Please try again.");
+        history.push('/chat');
       }
-    } catch (error) {
-      console.error(error); // Millor gestió d'errors, registrant a la consola
-      setRegistrationError("An unexpected error occurred. Please try again later.");
-    }
-  }
+    });
+  };
 
   return (
-    <div className="joinOuterContainer">
-      <div className="joinInnerContainer">
+    <div className="registerOuterContainer">
+      <div className="registerInnerContainer">
         <h1 className="heading">Register</h1>
-        <form onSubmit={handleRegister}>
-
-          {registrationSuccess ? (
-            <div>
-              <p>Registration successful! You can now log in with your credentials.</p>
-              <Link to="/login">Go to Login</Link>
-            </div>
-          ) : (
-            <> {/* Fragment per evitar elements extra */}
-              {registrationError && <p className="error">{registrationError}</p>}
-              <div>
-                <input
-                  placeholder="Username"
-                  className="joinInput"
-                  type="text"
-                  onChange={(event) => setUserName(event.target.value)}
-                />
-              </div>
-              <div>
-                <input
-                  placeholder="Password"
-                  className="joinInput mt-20"
-                  type="password"
-                  onChange={(event) => setPassword(event.target.value)}
-                />
-              </div>
-
-              <button className="button mt-20" type="submit" onClick={handleRegister}>Register</button>
-            </>
-          )}
-          <div className="mt-20">
-            <Link to="/">Already have an account? Login here</Link>
-          </div>
+        {error && <div className="error">{error}</div>}
+        <form onSubmit={handleSubmit}>
+          <input
+            placeholder="Username"
+            className="registerInput"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            placeholder="Password"
+            className="registerInput mt-20"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button className="button mt-20" type="submit">
+            Register
+          </button>
         </form>
+        <p className="mt-20">
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
       </div>
     </div>
   );
-}
+};
+
+export default Register;

@@ -1,68 +1,67 @@
-/* Register page styles */
 .registerOuterContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 100vh;
-    background-color: #1A1A1D;
-    padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  height: 100vh;
+  align-items: center;
+  background-color: #1A1A1D;
+}
+
+.registerInnerContainer {
+  width: 20%;
+}
+
+.registerInput {
+  border-radius: 0;
+  padding: 15px 20px;
+  width: 100%;
+}
+
+.heading {
+  color: white;
+  font-size: 2.5em;
+  padding-bottom: 10px;
+  border-bottom: 2px solid white;
+}
+
+.button {
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #2979FF;
+  padding: 20px;
+  border-radius: 5px;
+  display: inline-block;
+  border: none;
+  width: 100%;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .registerOuterContainer {
+    height: 100%;
   }
-  
+
   .registerInnerContainer {
-    width: 20%;
-    background: #333;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 90%;
   }
-  
-  .registerInput {
-    border-radius: 4px;
-    padding: 15px 20px;
-    margin: 10px 0;
-    width: 100%;
-    border: 1px solid #ccc;
-    font-size: 16px;
+}
+
+@media (min-width: 480px) and (max-width: 1200px) {
+  .registerOuterContainer {
+    height: 100%;
   }
-  
-  .registerHeading { /* Match join.css heading style */
-    color: white;
-    font-size: 2.5em;
-    margin-bottom: 20px;
+
+  .registerInnerContainer {
+    width: 60%;
   }
-  
-  .registerButton { /* Match join.css button style */
-    color: #fff !important;
-    text-transform: uppercase;
-    text-decoration: none;
-    background: #2979FF;
-    padding: 15px;
-    border-radius: 5px;
-    display: inline-block;
-    border: none;
-    width: 100%;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .registerButton:focus {
-    outline: 0;
-  }
-  
-  .mt-20 {
-    margin-top: 20px;
-  }
-  
-  /* Responsive styles */
-  @media (max-width: 480px) {
-    .registerOuterContainer {
-      padding: 0;
-    }
-  
-    .registerInnerContainer {
-      width: 90%;
-      padding: 20px;
-    }
-  }
-  
+}

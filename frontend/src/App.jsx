@@ -1,30 +1,19 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Register from './components/Register/Register';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Join from './components/Join/Join';
-import Chat from './components/Chat/Chat'; 
+import Chat from './components/Chat/Chat';
+import Register from './components/Register/Register';
 
-const App = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Join />} />
-        <Route path="/login" element={<Join />} />
-
-        <Route path="/register" element={<Register />} />
-        <Route path="/chat" element={<Chat />} />
-      </Routes>
-    </BrowserRouter>
-  );
-};
+const App = () => (
+  <Router>
+    <div className="app">
+      <Switch>
+        <Route path="/" exact component={Join} />
+        <Route path="/chat" component={Chat} />
+        <Route path="/register" component={Register} />
+      </Switch>
+    </div>
+  </Router>
+);
 
 export default App;
-
-
-
-
-
-
-
-
-

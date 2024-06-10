@@ -1,0 +1,16 @@
+{
+  "presets": ["module:metro-react-babel-preset", "@babel/preset-env"],
+  "plugins": [
+    [
+      "module:react-dotenv",
+      {
+        "moduleName": "@env",
+        "path": ".env",
+        "safe": true,
+        "whitelist": ["^REACT_APP_.*"],
+        "ecmaVersion": 2023,
+        "allowUndefined": true
+      }
+    ]
+  ]
+}
