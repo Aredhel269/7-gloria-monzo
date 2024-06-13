@@ -14,8 +14,5 @@ export class MessageServiceImpl implements MessageService {
     const newMessage = new Message(messageText, userId, roomId);
     return this.messageRepository.createMessage(newMessage);
   }
-
-  async getMessagesByRoomId(roomId: string): Promise<Message[]> {
-    return this.messageRepository.getMessagesByRoomId(roomId);
-  }
+ 
 }

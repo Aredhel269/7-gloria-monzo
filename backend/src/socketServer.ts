@@ -1,8 +1,7 @@
 import { Server } from 'socket.io';
-import socketServer from './fastifyServer';
+import server from './server'; 
 
-
-const io = new Server(socketServer);
+const io = new Server(server);
 
 io.on("connection", (socket) => {
     console.log("A user connected");
@@ -35,8 +34,6 @@ io.on("connection", (socket) => {
             text: `A user has disconnected`,
         });
     });
-
 });
 
-
-export default socketServer;
+export default io;

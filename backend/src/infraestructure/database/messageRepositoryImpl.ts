@@ -21,19 +21,7 @@ export class MessageRepositoryImpl implements MessageRepository {
     );
   }
 
-  async getMessagesByRoomId(roomId: string): Promise<Message[]> {
-    const messages = await prisma.message.findMany({
-      where: {
-        roomId,
-      },
-    });
 
-      return messages.map(msg => new Message(
-      msg.messageText,
-      msg.userId,
-      msg.roomId
-    ));
-  }
 }
 
 

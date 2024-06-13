@@ -6,7 +6,7 @@
         This part handles the user interface and interacts with the backend through API calls.
 
     Backend (Node.js server with Socket.IO):
-        The server.ts file defines the Fastify server and Socket.IO integration.
+        The server.ts file defines the Express server and Socket.IO integration.
         It handles user registration, login, and basic data access through routes defined in userRoutes.ts.
         The Socket.IO functionality allows real-time communication for chat features.
 

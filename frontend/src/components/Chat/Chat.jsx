@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import InfoBar from '../InfoBar/InfoBar';
-import { useLocation } from "react-router-dom";
 import Messages from '../Messages/Messages';
 import TextContainer from '../TextContainer/TextContainer';
 import io from 'socket.io-client';
@@ -9,33 +8,31 @@ import queryString from 'query-string';
 let socket;
 
 const Chat = () => {
-  const location = useLocation();
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
-  const [users, setUsers] = useState("");
+  const [users, setUsers] = useState([]);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    const { name, room } = queryString.parse(location.search);
+    const { name, room } = queryString.parse(window.location.search);
 
-    // Inicialitza el socket amb l'URL del servidor
-    socket = io('http://localhost:3000'); // Canvia la URL segons sigui necessari
+    socket = io('http://localhost:3000');
 
     setName(name);
     setRoom(room);
 
-    socket.emit('join', { name, room }, (error) => {
+    socket.emit('join', { userName: name, roomName: room }, (error) => {
       if (error) {
         alert(error);
       }
     });
 
     return () => {
-      socket.emit('disconnect');
+      socket.disconnect()      
       socket.off();
     };
-  }, [location.search]);
+  }, []);
 
   useEffect(() => {
     socket.on('message', (message) => {
@@ -56,7 +53,7 @@ const Chat = () => {
     event.preventDefault();
 
     if (message) {
-      socket.emit('sendMessage', message, () => setMessage(''));
+      socket.emit('chat', { messageText: message, userId: name, roomId: room }, () => setMessage(''));
     }
   };
 
@@ -77,8 +74,3 @@ const Chat = () => {
 };
 
 export default Chat;
-
-
-
-// mirant un possible error de les extensions
-// pq els botons no fan res??

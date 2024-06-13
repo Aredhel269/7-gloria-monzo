@@ -1,12 +1,8 @@
-import { FastifyInstance } from 'fastify';
+import { Router } from 'express';
 import MessageController from '../../controllers/messageController';
-import "dotenv/config";
 
-const registerRoutes = (app: FastifyInstance) => {
+const router = Router();
 
+router.post('/newMessage', MessageController.createMessage);
 
-    app.post('/newMessage', MessageController.createMessage);
-    app.get('/messages/:roomId', MessageController.getMessagesByRoomId);
-};
-
-export default registerRoutes;
+export default router;

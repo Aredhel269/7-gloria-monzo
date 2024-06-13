@@ -2,7 +2,7 @@
     "clientName": "Thunder Client",
     "collectionName": "Xat",
     "collectionId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
-    "dateExported": "2024-05-28T13:39:26.871Z",
+    "dateExported": "2024-06-12T15:11:34.389Z",
     "version": "1.2",
     "folders": [
         {
@@ -33,15 +33,15 @@
             "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
             "containerId": "5a8e8f02-a8d8-4f2f-a3db-9197eeb5bf27",
             "name": "Register User",
-            "url": "http://localhost:3000/api/register",
+            "url": "http://localhost:3000/api/users/register",
             "method": "POST",
             "sortNum": 10000,
             "created": "2024-05-25T18:35:39.442Z",
-            "modified": "2024-05-28T12:24:24.197Z",
+            "modified": "2024-06-12T09:20:54.750Z",
             "headers": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"userName\":\"Nina\",\n  \"password\":\"1234\"\n}",
+                "raw": "{\n  \"userName\":\"Nina\",\n  \"password\":\"1111\"\n}",
                 "form": []
             }
         },
@@ -50,90 +50,15 @@
             "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
             "containerId": "0c10f1ea-cf9c-4712-9892-6504f2d1f21e",
             "name": "Create message",
-            "url": "http://localhost:3000/api/messages",
+            "url": "http://localhost:3000/api/messages/newMessage",
             "method": "POST",
             "sortNum": 10000,
             "created": "2024-05-25T18:40:57.126Z",
-            "modified": "2024-05-28T13:36:34.689Z",
+            "modified": "2024-06-12T15:10:19.976Z",
             "headers": [],
             "body": {
                 "type": "json",
                 "raw": "{\n  \"messageText\": \"Hola, aquest és un missatge de prova.\",\n  \"userId\": \"clwmopdqr00004c2m9yol20md\",\n  \"roomId\": \"clwmggm720002anstxjq5jm92\"\n}\n",
-                "form": []
-            }
-        },
-        {
-            "_id": "7b63f064-4883-4f3c-94f2-7f581a89b39e",
-            "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
-            "containerId": "5a8e8f02-a8d8-4f2f-a3db-9197eeb5bf27",
-            "name": "GET user by userName",
-            "url": "http://localhost:3000/api/users/tula",
-            "method": "GET",
-            "sortNum": 20000,
-            "created": "2024-05-27T16:11:57.041Z",
-            "modified": "2024-05-28T12:49:17.869Z",
-            "headers": []
-        },
-        {
-            "_id": "7cd40f0c-f036-40fd-84e5-9a62d61b22cd",
-            "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
-            "containerId": "0c10f1ea-cf9c-4712-9892-6504f2d1f21e",
-            "name": "GET messages by roomId",
-            "url": "http://localhost:3000/api/messages/clwmggm720002anstxjq5jm92",
-            "method": "GET",
-            "sortNum": 20000,
-            "created": "2024-05-28T13:38:18.995Z",
-            "modified": "2024-05-28T13:38:39.497Z",
-            "headers": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"messageText\": \"Hola, aquest és un missatge de prova.\",\n  \"userId\": \"clwmopdqr00004c2m9yol20md\",\n  \"roomId\": \"clwmggm720002anstxjq5jm92\"\n}\n",
-                "form": []
-            }
-        },
-        {
-            "_id": "01cf7b5e-3df2-46c8-974c-a38c060ba9d7",
-            "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
-            "containerId": "5a8e8f02-a8d8-4f2f-a3db-9197eeb5bf27",
-            "name": "GET all users",
-            "url": "http://localhost:3000/api/users",
-            "method": "GET",
-            "sortNum": 30000,
-            "created": "2024-05-27T16:13:22.605Z",
-            "modified": "2024-05-28T13:20:42.654Z",
-            "headers": []
-        },
-        {
-            "_id": "059f4b41-6981-48f9-a9a6-c895e142cdd0",
-            "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
-            "containerId": "79204574-d7f6-4fe1-ad66-27d85a74b5c2",
-            "name": "Create room",
-            "url": "http://localhost:3000/api/rooms",
-            "method": "POST",
-            "sortNum": 40000,
-            "created": "2024-05-25T22:47:19.263Z",
-            "modified": "2024-05-27T10:44:09.763Z",
-            "headers": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"roomName\":\"welcome\"\n}",
-                "form": []
-            }
-        },
-        {
-            "_id": "128d4c90-77b6-4aca-a8d3-0f55100a101e",
-            "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
-            "containerId": "79204574-d7f6-4fe1-ad66-27d85a74b5c2",
-            "name": "GET room by room name",
-            "url": "http://localhost:3000/api/rooms/welcome",
-            "method": "GET",
-            "sortNum": 50000,
-            "created": "2024-05-25T18:43:43.925Z",
-            "modified": "2024-05-28T12:49:58.000Z",
-            "headers": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"roomName\":\"general\"\n}",
                 "form": []
             }
         },
@@ -142,11 +67,11 @@
             "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
             "containerId": "5a8e8f02-a8d8-4f2f-a3db-9197eeb5bf27",
             "name": "Login User",
-            "url": "http://localhost:3000/api/login",
+            "url": "http://localhost:3000/api/users/login",
             "method": "POST",
-            "sortNum": 60000,
+            "sortNum": 15000,
             "created": "2024-05-28T13:29:06.157Z",
-            "modified": "2024-05-28T13:29:06.157Z",
+            "modified": "2024-06-12T11:51:52.894Z",
             "headers": [],
             "body": {
                 "type": "json",
@@ -155,15 +80,73 @@
             }
         },
         {
+            "_id": "01cf7b5e-3df2-46c8-974c-a38c060ba9d7",
+            "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
+            "containerId": "5a8e8f02-a8d8-4f2f-a3db-9197eeb5bf27",
+            "name": "GET all users",
+            "url": "http://localhost:3000/api/users/allusers",
+            "method": "GET",
+            "sortNum": 17500,
+            "created": "2024-05-27T16:13:22.605Z",
+            "modified": "2024-06-12T10:35:42.806Z",
+            "headers": []
+        },
+        {
+            "_id": "7b63f064-4883-4f3c-94f2-7f581a89b39e",
+            "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
+            "containerId": "5a8e8f02-a8d8-4f2f-a3db-9197eeb5bf27",
+            "name": "GET user by userName",
+            "url": "http://localhost:3000/api/users/istar",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-05-27T16:11:57.041Z",
+            "modified": "2024-06-12T10:30:04.289Z",
+            "headers": []
+        },
+        {
+            "_id": "059f4b41-6981-48f9-a9a6-c895e142cdd0",
+            "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
+            "containerId": "79204574-d7f6-4fe1-ad66-27d85a74b5c2",
+            "name": "Create room",
+            "url": "http://localhost:3000/api/rooms/newRoom",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2024-05-25T22:47:19.263Z",
+            "modified": "2024-06-12T11:53:32.945Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"roomName\":\"cine\"\n}",
+                "form": []
+            }
+        },
+        {
             "_id": "a62591ae-ce33-4e30-a3aa-e50e3460818f",
             "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
             "containerId": "79204574-d7f6-4fe1-ad66-27d85a74b5c2",
             "name": "GET all rooms",
-            "url": "http://localhost:3000/api/rooms",
+            "url": "http://localhost:3000/api/rooms/allrooms",
             "method": "GET",
-            "sortNum": 60000,
+            "sortNum": 45000,
             "created": "2024-05-28T13:31:06.438Z",
-            "modified": "2024-05-28T13:31:16.599Z",
+            "modified": "2024-06-12T11:54:23.674Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"roomName\":\"general\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "128d4c90-77b6-4aca-a8d3-0f55100a101e",
+            "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
+            "containerId": "79204574-d7f6-4fe1-ad66-27d85a74b5c2",
+            "name": "GET room by room name",
+            "url": "http://localhost:3000/api/rooms/rooms/cine",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2024-05-25T18:43:43.925Z",
+            "modified": "2024-06-12T14:38:55.478Z",
             "headers": [],
             "body": {
                 "type": "json",
@@ -172,5 +155,5 @@
             }
         }
     ],
-    "ref": "NDibbWIKLxXhYjuhZahHw6P4qH5uU0PKp0gwPSh227mIX2qlAe6FUEs_IisGtSNmWP1jj0M2auE-0fUSumhf_w"
+    "ref": "NDibbWIKLxXhYjuhZahHw9NtZUdxNCPMjvjrDaxTSDgBCYJEA89bqJLwvgyo9EsSNkfMnls_xDY546cmUzZIjA"
 }

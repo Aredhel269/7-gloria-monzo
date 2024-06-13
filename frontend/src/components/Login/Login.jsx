@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3000/login", {
+    fetch(`${process.env.REACT_APP_BACKURL}/users/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ userName: userName, password }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -22,7 +22,10 @@ const Login = () => {
           navigate("/chat");
         }
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        setError("An error occurred. Please try again.");
+      });
   };
 
   return (
@@ -32,7 +35,7 @@ const Login = () => {
         <input
           placeholder="Username"
           type="text"
-          value={username}
+          value={userName}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
@@ -50,6 +53,5 @@ const Login = () => {
     </div>
   );
 };
-  
-  export default Login;
 
+export default Login;

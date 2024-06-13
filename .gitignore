@@ -152,4 +152,5 @@ features/step_definitions
 # End-to-end test framework
 cypress/
 
-+
+.idx
+dev.nix

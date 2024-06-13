@@ -1,11 +1,11 @@
-import { FastifyInstance } from 'fastify';
+import { Router } from 'express';
 import UserController from '../../controllers/userController';
 
-const userRoutes = (app: FastifyInstance) => {
-  app.post('/register', UserController.registerUser); 
-  app.post('/login', UserController.loginUser);
-  app.get('/users/:userName', UserController.getUserByUserName);
-  app.get('/users', UserController.getAllUsers);
-};
+const router = Router();
 
-export default userRoutes;
+router.get('/allusers', UserController.getAllUsers);
+router.post('/register', UserController.registerUser);
+router.post('/login', UserController.loginUser);
+router.get('/:userName', UserController.getUserByUserName);
+
+export default router;

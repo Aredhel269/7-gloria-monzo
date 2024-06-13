@@ -113,6 +113,6 @@
   
     "include": [
       "src/**/*"
-, "src/fastifyServer.ts"    ]}
+, "src/server.ts"    ]}
   
   

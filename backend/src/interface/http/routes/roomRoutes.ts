@@ -1,11 +1,10 @@
-import { FastifyInstance } from 'fastify';
+import { Router } from 'express';
 import RoomController from '../../controllers/roomController';
 
-const registerRoutes = (app: FastifyInstance) => {
+const router = Router();
 
-    app.post('/newRoom', RoomController.createRoom);
-    app.get('/rooms/:roomName', RoomController.getRoomByName);
-    app.get('/rooms', RoomController.getAllRooms);
-}
+router.post('/newRoom', RoomController.createRoom);
+router.get('/allrooms', RoomController.getAllRooms);
+router.get('/rooms/:roomName', RoomController.getRoomByName);
 
-export default registerRoutes;
+export default router;

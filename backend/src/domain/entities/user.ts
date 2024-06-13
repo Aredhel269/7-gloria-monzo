@@ -9,9 +9,6 @@ export class User {
     this._password = password;
   }
 
-
-  // PQ NO S'IMPRIMEIX L'ID????
-  // MIRAR ON LI DIU QUE USER TE NAME PASSWORD I ROOMS
   get userId(): string {
     return this._userId
   }
