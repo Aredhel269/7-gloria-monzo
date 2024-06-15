@@ -37,7 +37,7 @@ const handleAction = async (e) => {
     console.log("Response:", data); // Log the response from the server
 
     onLogin(userName);
-    navigate("/rooms");
+    navigate("/chat");
   } catch (error) {
     console.error("Fetch error:", error);
     setError(error.message || "Error: something went wrong.");

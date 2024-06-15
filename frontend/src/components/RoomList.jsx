@@ -5,7 +5,7 @@ function RoomList({ rooms, handleCreateRoom, userName }) {
   const navigate = useNavigate();
 
   const onRoomSelect = (roomName) => {
-    navigate(`/rooms/${roomName}`);
+    navigate(`/chat/${roomName}`);
   };
 
   return (
