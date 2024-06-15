@@ -1,17 +1,16 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
-import './index.css';
+import './style.css';
+declare module 'react/jsx-runtime';
 
 const container = document.getElementById('root');
-const root = createRoot(container); // createRoot(container!) si utilitzes TypeScript
+const root = createRoot(container!); // createRoot(container!) si utilitzes TypeScript
 
 root.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
+
 );
-
-
-
 

@@ -1,0 +1,143 @@
+/* Estils generals */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Estils del formulari de login */
+.login-container {
+  text-align: center;
+}
+
+.login-container h2 {
+  margin-bottom: 20px;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-container input {
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.login-container button {
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.login-container button:hover {
+  background-color: #0056b3;
+}
+
+.login-container .alert {
+  color: red;
+  margin-top: 10px;
+}
+
+/* Estils de la llista de sales de xat */
+.chat-container {
+  text-align: center;
+}
+
+.chat-container h2 {
+  margin-bottom: 20px;
+}
+
+.chat-container button {
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.chat-container button:hover {
+  background-color: #0056b3;
+}
+
+.chat-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.chat-container li {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.chat-container li:hover {
+  background-color: #f4f4f4;
+}
+
+/* Estils de la sala de xat */
+.chat-container input {
+  padding: 10px;
+  width: 80%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.chat-container button {
+  padding: 10px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.chat-container button:hover {
+  background-color: #0056b3;
+}
+
+.chat-container div {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.chat-container p {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.chat-container p b {
+  color: #007bff;
+}
