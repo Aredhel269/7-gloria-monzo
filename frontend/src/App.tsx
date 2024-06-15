@@ -10,7 +10,7 @@ import RoomList from "./components/RoomList";
 import ChatRoom from "./components/Chat";
 import Login from "./components/Login";
 
-const socket = io("http://localhost:3000");
+const socket = io("http://localhost:3000"); // o 3001??????????
 
 const App = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
