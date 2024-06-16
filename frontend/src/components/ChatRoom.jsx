@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Header from "./Header";
+import ChatArea from "./ChatArea";
+import Sidebar from "./Sidebar";
 
-function ChatRoom({ socket, userName }) {
-  const { roomId } = useParams();
-  const [message, setMessage] = useState("");
+const ChatRoom = ({ socket, userName }) => {
+  const { roomId: roomName } = useParams();
   const [messages, setMessages] = useState([]);
+  const [participants, setParticipants] = useState([]);
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
   useEffect(() => {
-    socket.emit("joinRoom", roomId);
+    socket.emit("joinRoom", roomName);
 
     socket.on("chatMessage", (data) => {
       setMessages((prevMessages) => [...prevMessages, data]);
@@ -17,42 +21,43 @@ function ChatRoom({ socket, userName }) {
       setMessages(existingMessages);
     });
 
+    socket.on("participants", (participantsList) => {
+      setParticipants(participantsList);
+    });
+
     return () => {
       socket.off("chatMessage");
       socket.off("existingMessages");
+      socket.off("participants");
     };
-  }, [roomId, socket]);
+  }, [roomName, socket]);
 
-  const sendMessage = () => {
-    if (message.trim() !== "") {
-      socket.emit("chatMessage", {
-        room: roomId,
-        message,
-        userName,
-      });
-      setMessage("");
-    }
+  const sendMessage = (message) => {
+    socket.emit("chatMessage", {
+      room: roomName,
+      message,
+      userName,
+    });
+  };
+
+  const toggleSidebar = () => {
+    setIsSidebarVisible((prev) => !prev);
+  };
+
+  const logout = () => {
+    socket.emit("leaveRoom", roomName);
+    // lògica de desconnexió
   };
 
   return (
-    <div className="chat-container">
-      <h2>Room: {roomId}</h2>
-      <input
-        type="text"
-        placeholder="Message"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-      />
-      <button onClick={sendMessage}>Send Message</button>
-      <div>
-        {messages.map((msg, index) => (
-          <p key={index}>
-            <b>{msg.userName}:</b> {msg.message}
-          </p>
-        ))}
+    <div className="chat-room">
+      <Header roomName={roomName} toggleSidebar={toggleSidebar} logout={logout} />
+      <div className="main-content">
+        <ChatArea messages={messages} sendMessage={sendMessage} userName={userName} />
+        {isSidebarVisible && <Sidebar participants={participants} />}
       </div>
     </div>
   );
-}
+};
 
 export default ChatRoom;
