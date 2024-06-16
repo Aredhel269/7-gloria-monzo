@@ -104,15 +104,51 @@ body {
 }
 
 /* Estils de la sala de xat */
-.chat-container input {
+.chatroom-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px;
-  width: 80%;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 8px 8px 0 0;
+}
+
+.main-chat-area {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #fff;
+  border-right: 1px solid #ccc;
+}
+
+.chat-area {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.input-area {
+  display: flex;
+  align-items: center;
+}
+
+.input-area input {
+  flex: 1;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.chat-container button {
-  padding: 10px;
+.input-area button {
+  padding: 10px 20px;
   margin-left: 10px;
   border: none;
   border-radius: 4px;
@@ -121,23 +157,36 @@ body {
   cursor: pointer;
 }
 
-.chat-container button:hover {
+.input-area button:hover {
   background-color: #0056b3;
 }
 
-.chat-container div {
-  margin-top: 20px;
-  text-align: left;
+.writing-notification {
+  color: #999;
+  font-style: italic;
+  margin-top: 10px;
 }
 
-.chat-container p {
+.sidebar {
+  flex: 1;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 0 8px 8px 0;
+}
+
+.sidebar h3 {
+  margin-top: 0;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: #f9f9f9;
-}
-
-.chat-container p b {
-  color: #007bff;
+  background-color: #fff;
 }

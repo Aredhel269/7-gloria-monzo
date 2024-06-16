@@ -2,7 +2,7 @@ import express from 'express';
 import http from 'http';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { Server } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 import userRoutes from './interface/http/routes/userRoutes';
 import messageRoutes from './interface/http/routes/messageRoutes';
 import roomRoutes from './interface/http/routes/roomRoutes';
@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(cors({
-    origin: '*', // Allow CORS for all origins (consider security implications for production)
+    origin: '*', // Permet CORS per a tots els orígens (considera les implicacions de seguretat per a producció)
 }));
 
 app.use(express.json());
@@ -26,10 +26,10 @@ app.use('/api/users', userRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/rooms', roomRoutes);
 
-// Create the HTTP server using Express instance
+// Creem el servidor HTTP utilitzant l'instància d'Express
 const server = http.createServer(app);
 
-// Socket.IO setup
+// Configuració de Socket.IO
 const io = new Server(server, {
     cors: {
         origin: '*',
@@ -37,33 +37,65 @@ const io = new Server(server, {
     }
 });
 
-io.on('connection', (socket) => {
-    console.log('New client connected');
-    
-    socket.on('join', ({ userName, roomName }, callback) => {
-        // Join logic here
+// Interfície per a les extensions dels objectes Socket
+interface CustomSocket extends Socket {
+    userName?: string; // Afegim una propietat opcional per userName
+}
+
+io.on('connection', (socket: CustomSocket) => {
+    console.log('Nou client connectat');
+
+    socket.on('joinRoom', ({ userName, roomName }) => {
+        socket.userName = userName; // Assignem el nom d'usuari al socket
         socket.join(roomName);
-        io.to(roomName).emit('message', { user: 'admin', text: `${userName} has joined!` });
-        callback();
+        io.to(roomName).emit('chatMessage', { userName: 'admin', message: `${userName} s'ha unit!` });
+
+        // Emitim els missatges existents de la sala (simulat)
+        const existingMessages = [
+            { userName: 'usuari1', message: 'Hola a tots!' },
+            { userName: 'usuari2', message: 'Benvingut!' }
+        ];
+        socket.emit('existingMessages', existingMessages);
+
+        // Actualitzem la llista de participants
+        const roomParticipants = Array.from(io.sockets.adapter.rooms.get(roomName) ?? []).map(socketId => {
+            const participantSocket = io.sockets.sockets.get(socketId) as CustomSocket;
+            return participantSocket?.userName ?? '';
+        });
+        io.to(roomName).emit('updateParticipants', roomParticipants);
     });
 
-    socket.on('chat', ({ messageText, userId, roomId }, callback) => {
-        io.to(roomId).emit('message', { user: userId, text: messageText });
-        callback();
+    socket.on('chatMessage', ({ room, message, userName }) => {
+        io.to(room).emit('chatMessage', { userName, message });
+    });
+
+    socket.on('userTyping', ({ roomName, userName }) => {
+        socket.to(roomName).emit('userWriting', { userName });
+    });
+
+    socket.on('leaveRoom', ({ roomName, userName }) => {
+        socket.leave(roomName);
+        io.to(roomName).emit('chatMessage', { userName: 'admin', message: `${userName} ha deixat la sala.` });
+
+        // Actualitzem la llista de participants
+        const roomParticipants = Array.from(io.sockets.adapter.rooms.get(roomName) ?? []).map(socketId => {
+            const participantSocket = io.sockets.sockets.get(socketId) as CustomSocket;
+            return participantSocket?.userName ?? '';
+        });
+        io.to(roomName).emit('updateParticipants', roomParticipants);
     });
 
     socket.on("disconnect", () => {
-        console.log("A user disconnected");
-        io.emit("message", {
-            user: "admin",
-            text: `A user has disconnected`,
+        console.log("Un usuari s'ha desconnectat");
+        io.emit("chatMessage", {
+            userName: "admin",
+            message: `Un usuari s'ha desconnectat`,
         });
     });
 });
 
 server.listen(PORT, () => {
-    console.log(`Express server listening on port ${PORT}`);
+    console.log(`Servidor Express escoltant al port ${PORT}`);
 });
 
 export default server;
-
