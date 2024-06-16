@@ -10,7 +10,9 @@ function RoomList({ rooms, handleCreateRoom, userName }) {
 
   return (
     <div className="chat-container">
-      <button onClick={handleCreateRoom}>Create Room</button>
+      <button onClick={() => handleCreateRoom(prompt("Enter the room name:") || "")}>
+        Create Room
+      </button>
       <h2>Available Rooms</h2>
       <ul>
         {rooms.map((roomName, index) => (

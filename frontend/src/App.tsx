@@ -7,16 +7,12 @@ import {
   Navigate,
 } from "react-router-dom";
 import RoomList from "./components/RoomList";
-import ChatRoom from "./components/Chat";
+import ChatRoom from "./components/ChatRoom"; // Nom del fitxer canviat aquí
 import Login from "./components/Login";
 
-const socket = io("http://localhost:3000"); // o 3001??????????
+const socket = io("http://localhost:3000");
 
 const App = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [messages, setMessages] = useState<
-    { userName: string; message: string }[]
-  >([]);
   const [userName, setUserName] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [rooms, setRooms] = useState<string[]>([]);
@@ -27,34 +23,17 @@ const App = () => {
   };
 
   useEffect(() => {
-    socket.on("message", (data) => {
-      setMessages((prevMessages) => [...prevMessages, data]);
-    });
-
-    return () => {
-      socket.off("message");
-    };
+    fetch("http://localhost:3000/api/rooms/allrooms")
+      .then((response) => response.json())
+      .then((data) => {
+        const roomNames = data.map((room: { _roomName: string }) => room._roomName);
+        setRooms(roomNames);
+      })
+      .catch((error) => console.error("Error fetching rooms:", error));
   }, []);
 
-  useEffect(() => {
-    socket.emit("requestRoomList");
-
-    const handleRoomList = (roomList: string[]) => {
-      setRooms(roomList);
-    };
-
-    socket.on("roomList", handleRoomList);
-
-    return () => {
-      socket.off("roomList", handleRoomList);
-    };
-  }, []);
-
-  const handleCreateRoom = () => {
-    const roomName = prompt("Enter the room name:");
-    if (roomName) {
-      socket.emit("createRoom", roomName);
-    }
+  const handleCreateRoom = (roomName: string) => {
+    socket.emit("createRoom", roomName);
   };
 
   return (
@@ -62,23 +41,11 @@ const App = () => {
       <Routes>
         <Route
           path="/"
-          element={
-            !isLoggedIn ? (
-              <Login onLogin={handleLogin} />
-            ) : (
-              <Navigate to="/chat" />
-            )
-          }
+          element={!isLoggedIn ? <Login onLogin={handleLogin} /> : <Navigate to="/rooms" replace />}
         />
         <Route
-          path="/chat"
-          element={
-            <RoomList
-              rooms={rooms}
-              handleCreateRoom={handleCreateRoom}
-              userName={userName}
-            />
-          }
+          path="/rooms"
+          element={<RoomList rooms={rooms} handleCreateRoom={handleCreateRoom} userName={userName} />}
         />
         <Route
           path="/chat/:roomId"

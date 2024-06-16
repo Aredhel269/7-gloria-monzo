@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 function ChatRoom({ socket, userName }) {
-  const { id: roomName } = useParams();
+  const { roomId } = useParams();
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    socket.emit("joinRoom", roomName);
+    socket.emit("joinRoom", roomId);
 
     socket.on("chatMessage", (data) => {
       setMessages((prevMessages) => [...prevMessages, data]);
@@ -21,12 +21,12 @@ function ChatRoom({ socket, userName }) {
       socket.off("chatMessage");
       socket.off("existingMessages");
     };
-  }, [roomName, socket]);
+  }, [roomId, socket]);
 
   const sendMessage = () => {
-    if (message !== "") {
+    if (message.trim() !== "") {
       socket.emit("chatMessage", {
-        room: roomName,
+        room: roomId,
         message,
         userName,
       });
@@ -36,7 +36,7 @@ function ChatRoom({ socket, userName }) {
 
   return (
     <div className="chat-container">
-      <h2>Room: {roomName}</h2>
+      <h2>Room: {roomId}</h2>
       <input
         type="text"
         placeholder="Message"

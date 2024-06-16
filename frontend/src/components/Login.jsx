@@ -8,42 +8,37 @@ const Login = ({ onLogin }) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // Login.jsx
+  const handleAction = async (e) => {
+    e.preventDefault();
+    setError("");
 
-const handleAction = async (e) => {
-  e.preventDefault();
-  setError("");
-
-  if (!userName.trim() || !password.trim()) {
-    setError("Please fill in all the fields.");
-    return;
-  }
-
-  const url = `http://localhost:3000/api/users/${isLoginMode ? "login" : "register"}`;
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userName, password }), // Use 'userName' instead of 'name'
-    });
-
-    if (!response.ok) {
-      throw new Error("Error: Invalid credentials"); // Handle specific errors here
+    if (!userName.trim() || !password.trim()) {
+      setError("Please fill in all the fields.");
+      return;
     }
 
-    const data = await response.json();
-    console.log("Response:", data); // Log the response from the server
+    const url = `http://localhost:3000/api/users/${isLoginMode ? "login" : "register"}`;
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userName, password }),
+      });
 
-    onLogin(userName);
-    navigate("/chat");
-  } catch (error) {
-    console.error("Fetch error:", error);
-    setError(error.message || "Error: something went wrong.");
-  }
-};
+      if (!response.ok) {
+        throw new Error("Error: Invalid credentials");
+      }
 
+      // eslint-disable-next-line no-unused-vars
+      const data = await response.json();
+      onLogin(userName);
+      navigate("/rooms");
+    } catch (error) {
+      setError(error.message || "Error: something went wrong.");
+    }
+  };
 
   const toggleMode = () => {
     setIsLoginMode((prevMode) => !prevMode);
