@@ -11,6 +11,7 @@ export class RoomServiceImpl implements RoomService {
     }
   
     // Implementació dels mètodes de la interfície RoomService
+    // falten les altres propietats de room
     async createRoom(roomName: string): Promise<Room> {
       const newRoom = new Room(roomName);
       return this.roomRepository.createRoom(newRoom);

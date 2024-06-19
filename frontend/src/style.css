@@ -11,13 +11,16 @@ body {
 }
 
 .container {
-  max-width: 800px;
+  max-width: 1200px;
   width: 100%;
   margin: 0 auto;
   padding: 20px;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ocupa tota l'alçada de la pantalla */
 }
 
 /* Estils del formulari de login */
@@ -106,7 +109,7 @@ body {
 /* Estils de la sala de xat */
 .chatroom-container {
   display: flex;
-  flex-direction: row;
+  height: 100%; /* Ocupa tota l'alçada del contenidor */
 }
 
 .header {

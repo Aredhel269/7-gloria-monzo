@@ -1,29 +1,8 @@
 import { Message } from '../entities/message';
-import { MessageRepository } from '../repositories/messageRepository';
+
 export interface MessageService {
   createMessage(messageText: string, userId: string, roomId: string): Promise<Message>;
+  getMessages(): Promise<Message[]>;
+  getAllMessagesForUser(userName: string): Promise<Message[] | null>;
+  getMessagesForRoom(roomId: string): Promise<Message[] | null>;
 }
-export class MessageServiceImpl implements MessageService {
-  private messageRepository: MessageRepository;
-
-  constructor(messageRepository: MessageRepository) {
-    this.messageRepository = messageRepository;
-  }
-
-  async createMessage(messageText: string, userId: string, roomId: string): Promise<Message> {
-    const newMessage = new Message(messageText, userId, roomId);
-    return this.messageRepository.createMessage(newMessage);
-  }
-
-}
-
-
-
-
-
-
-
-
-
-
-

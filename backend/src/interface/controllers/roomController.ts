@@ -7,12 +7,17 @@ const roomService = new RoomServiceImpl(roomRepository);
 
 export default class RoomController {
   static async createRoom(req: Request, res: Response) {
+    const { roomName}= req.body;
+    console.log('create room:', {roomName})
     try {
-      const { roomName } = req.body;
 
       const room = await roomService.createRoom(roomName);
-      res.status(201).json(room);
+      console.log("Room created:", room)
+      const roomWithId = { ...room, id:room.roomId}
+
+      res.status(201).json({succes: true, roomWithId});
     } catch (error) {
+      console.error("Error creating room:", error)
       res.status(500).json({ error: 'Failed to create room' });
     }
   }
@@ -46,4 +51,3 @@ export default class RoomController {
     }
   }
 }
-

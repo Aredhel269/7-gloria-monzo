@@ -2,7 +2,7 @@
     "clientName": "Thunder Client",
     "collectionName": "Xat",
     "collectionId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
-    "dateExported": "2024-06-12T15:11:34.389Z",
+    "dateExported": "2024-06-19T06:05:40.488Z",
     "version": "1.2",
     "folders": [
         {
@@ -54,11 +54,11 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2024-05-25T18:40:57.126Z",
-            "modified": "2024-06-12T15:10:19.976Z",
+            "modified": "2024-06-19T05:26:29.010Z",
             "headers": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"messageText\": \"Hola, aquest és un missatge de prova.\",\n  \"userId\": \"clwmopdqr00004c2m9yol20md\",\n  \"roomId\": \"clwmggm720002anstxjq5jm92\"\n}\n",
+                "raw": "{\n  \"messageText\": \"Hola, aquest és un altre missatge de prova.\",\n  \"userId\": \"clwmopdqr00004c2m9yol20md\",\n  \"roomId\": \"clwmggm720002anstxjq5jm92\"\n}\n",
                 "form": []
             }
         },
@@ -129,13 +129,8 @@
             "method": "GET",
             "sortNum": 45000,
             "created": "2024-05-28T13:31:06.438Z",
-            "modified": "2024-06-12T11:54:23.674Z",
-            "headers": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"roomName\":\"general\"\n}",
-                "form": []
-            }
+            "modified": "2024-06-18T17:11:23.529Z",
+            "headers": []
         },
         {
             "_id": "128d4c90-77b6-4aca-a8d3-0f55100a101e",
@@ -146,14 +141,33 @@
             "method": "GET",
             "sortNum": 50000,
             "created": "2024-05-25T18:43:43.925Z",
-            "modified": "2024-06-12T14:38:55.478Z",
-            "headers": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"roomName\":\"general\"\n}",
-                "form": []
-            }
+            "modified": "2024-06-18T17:11:15.052Z",
+            "headers": []
+        },
+        {
+            "_id": "ec18db94-316c-48c2-bd6b-b5d9496b1d83",
+            "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
+            "containerId": "0c10f1ea-cf9c-4712-9892-6504f2d1f21e",
+            "name": "Get messages user",
+            "url": "http://localhost:3000/api/messages/allmessages/Jan",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2024-06-19T05:24:45.802Z",
+            "modified": "2024-06-19T05:24:45.803Z",
+            "headers": []
+        },
+        {
+            "_id": "88fca49d-1438-497c-93ec-bc50cafc737d",
+            "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
+            "containerId": "0c10f1ea-cf9c-4712-9892-6504f2d1f21e",
+            "name": "Get messages room",
+            "url": "http://localhost:3000/api/messages/messagesroom/clwmggm720002anstxjq5jm92",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2024-06-19T06:05:22.025Z",
+            "modified": "2024-06-19T06:05:22.026Z",
+            "headers": []
         }
     ],
-    "ref": "NDibbWIKLxXhYjuhZahHw9NtZUdxNCPMjvjrDaxTSDgBCYJEA89bqJLwvgyo9EsSNkfMnls_xDY546cmUzZIjA"
+    "ref": "NDibbWIKLxXhYjuhZahHwwV6SnuR4N-QiExD4Vrh_3IK58Y5kcSRub1vf7Pb1UVNlUdvGiEJwwMzvUWQZyuMSQ"
 }

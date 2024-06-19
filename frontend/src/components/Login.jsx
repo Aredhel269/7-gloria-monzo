@@ -40,6 +40,13 @@ const Login = ({ onLogin }) => {
     }
   };
 
+  // Després d'un inici de sessió reeixit
+const token = "sessionToken";
+
+sessionStorage.setItem("userName", userName);
+sessionStorage.setItem("token", token);
+
+
   const toggleMode = () => {
     setIsLoginMode((prevMode) => !prevMode);
   };

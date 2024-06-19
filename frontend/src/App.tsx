@@ -45,7 +45,7 @@ const App = () => {
         />
         <Route
           path="/rooms"
-          element={<RoomList rooms={rooms} handleCreateRoom={handleCreateRoom} userName={userName} />}
+          element={<RoomList handleCreateRoom={handleCreateRoom} userName={userName} />}
         />
         <Route
           path="/chat/:roomId"
