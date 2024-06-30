@@ -13,12 +13,14 @@ const Login = ({ onLogin }) => {
     setError("");
 
     if (!userName.trim() || !password.trim()) {
+      console.error("[Login][handleAction] Error: Please fill in all the fields.");
       setError("Please fill in all the fields.");
       return;
     }
 
     const url = `http://localhost:3000/api/users/${isLoginMode ? "login" : "register"}`;
     try {
+      console.log("[Login][handleAction] Sending request to:", url);
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -28,26 +30,24 @@ const Login = ({ onLogin }) => {
       });
 
       if (!response.ok) {
+        console.error("[Login][handleAction] Error: Invalid credentials");
         throw new Error("Error: Invalid credentials");
       }
 
       // eslint-disable-next-line no-unused-vars
       const data = await response.json();
+      console.log("[Login][handleAction] Login/Registration successful:", data);
       onLogin(userName);
+      sessionStorage.setItem("userName", userName);
       navigate("/rooms");
     } catch (error) {
+      console.error("[Login][handleAction] Error:", error.message || "Error: something went wrong.");
       setError(error.message || "Error: something went wrong.");
     }
   };
 
-  // Després d'un inici de sessió reeixit
-const token = "sessionToken";
-
-sessionStorage.setItem("userName", userName);
-sessionStorage.setItem("token", token);
-
-
   const toggleMode = () => {
+    console.log("[Login][toggleMode] Switching login mode:", isLoginMode);
     setIsLoginMode((prevMode) => !prevMode);
   };
 

@@ -1,34 +1,47 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function RoomList({ handleCreateRoom, userName }) {
+function RoomList({ handleCreateRoom }) {
   const [rooms, setRooms] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("[RoomList][useEffect] Fetching rooms from the backend");
+
     // Carrega les sales des del backend quan el component es monta
     fetch("http://localhost:3000/api/rooms/allrooms")
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error ${response.status}`);
+        }
+        return response.json();
+      })
       .then((data) => {
+        console.log("[RoomList][useEffect] Received rooms data:", data);
         const roomNames = data.map((room) => room._roomName);
         setRooms(roomNames);
       })
       .catch((error) => {
-        console.error("Hi ha hagut un error en carregar les sales:", error);
+        console.error("[RoomList][useEffect] Error loading rooms:", error);
       });
   }, []);
 
   const onRoomSelect = (roomName) => {
+    console.log("[RoomList][onRoomSelect] Navigating to chat room:", roomName);
     navigate(`/chat/${roomName}`);
+  };
+
+  const onCreateRoom = () => {
+    const newRoomName = prompt("Enter the room name:");
+    if (newRoomName) {
+      console.log("[RoomList][onCreateRoom] Creating new room:", newRoomName);
+      handleCreateRoom(newRoomName);
+    }
   };
 
   return (
     <div className="chat-container">
-      <button
-        onClick={() => handleCreateRoom(prompt("Enter the room name:") || "")}
-      >
-        Create Room
-      </button>
+      <button onClick={onCreateRoom}>Create Room</button>
       <h2>Available Rooms</h2>
       <ul>
         {rooms.map((roomName, index) => (

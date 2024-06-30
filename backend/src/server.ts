@@ -43,53 +43,53 @@ interface CustomSocket extends Socket {
 }
 
 io.on('connection', (socket: CustomSocket) => {
-    console.log('Nou client connectat');
+    console.log('Nou client connectat[server io.on1]');
 
     socket.on('joinRoom', ({ userName, roomName }) => {
         socket.userName = userName; // Assignem el nom d'usuari al socket
         socket.join(roomName);
-        io.to(roomName).emit('chatMessage', { userName: 'admin', message: `${userName} s'ha unit!` });
+        io.to(roomName).emit('chatMessage[server io.on2]', { userName: 'admin', message: `${userName} s'ha unit![server]` });
 
         // Emitim els missatges existents de la sala (simulat)
-        const existingMessages = [
-            { userName: 'usuari1', message: 'Hola a tots!' },
+        /* existingMessages = [
+            { userName: 'usuari1', message: 'Hola a tots![server]' },
             { userName: 'usuari2', message: 'Benvingut!' }
         ];
-        socket.emit('existingMessages', existingMessages);
+        socket.emit('existingMessages', existingMessages);*/
 
         // Actualitzem la llista de participants
         const roomParticipants = Array.from(io.sockets.adapter.rooms.get(roomName) ?? []).map(socketId => {
             const participantSocket = io.sockets.sockets.get(socketId) as CustomSocket;
             return participantSocket?.userName ?? '';
         });
-        io.to(roomName).emit('updateParticipants', roomParticipants);
+        io.to(roomName).emit('updateParticipants[server3]', roomParticipants);
     });
 
     socket.on('chatMessage', ({ room, message, userName }) => {
-        io.to(room).emit('chatMessage', { userName, message });
+        io.to(room).emit('chatMessage[server4]', { userName, message });
     });
 
     socket.on('userTyping', ({ roomName, userName }) => {
-        socket.to(roomName).emit('userWriting', { userName });
+        socket.to(roomName).emit('userWriting[server5]', { userName });
     });
 
     socket.on('leaveRoom', ({ roomName, userName }) => {
         socket.leave(roomName);
-        io.to(roomName).emit('chatMessage', { userName: 'admin', message: `${userName} ha deixat la sala.` });
+        io.to(roomName).emit('chatMessage[server6]', { userName: 'admin', message: `${userName} ha deixat la sala.` });
 
         // Actualitzem la llista de participants
         const roomParticipants = Array.from(io.sockets.adapter.rooms.get(roomName) ?? []).map(socketId => {
             const participantSocket = io.sockets.sockets.get(socketId) as CustomSocket;
             return participantSocket?.userName ?? '';
         });
-        io.to(roomName).emit('updateParticipants', roomParticipants);
+        io.to(roomName).emit('updateParticipants[server7]', roomParticipants);
     });
 
     socket.on("disconnect", () => {
-        console.log("Un usuari s'ha desconnectat");
+        console.log("Un usuari s'ha desconnectat[server8]");
         io.emit("chatMessage", {
             userName: "admin",
-            message: `Un usuari s'ha desconnectat`,
+            message: `Un usuari s'ha desconnectat[server9]`,
         });
     });
 });
@@ -99,3 +99,6 @@ server.listen(PORT, () => {
 });
 
 export default server;
+
+
+

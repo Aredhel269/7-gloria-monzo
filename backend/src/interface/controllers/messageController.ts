@@ -8,11 +8,10 @@ const messageService = new MessageServiceImpl(messageRepository);
 export default class MessageController {
   static async createMessage(req: Request, res: Response) {
     const { messageText, userId, roomId } = req.body;
-    console.log('Message text:', { messageText, userId, roomId })
+    console.log('[messageController createMessage1] Creating message:', { messageText, userId, roomId })
     try {
-
       const message = await messageService.createMessage(messageText, userId, roomId);
-      console.log("Message created:", message);
+      console.log("[messageController createMessage2] Message created:", message);
       const messageWithId = { ...message, id: message.messageId }
       res.status(201).json({
         succes: true,
@@ -20,34 +19,34 @@ export default class MessageController {
       });
 
     } catch (error) {
-      console.error("Error creating message:", error);
-      res.status(500).json({ error: 'Failed to create message' });
+      console.error("[messageController createMessage error 1] Error creating message:", error);
+      res.status(500).json({ error: '[messageController createMessage error 2]Failed to create message' });
     }
   }
   static async getMessages(req: Request, res: Response) {
-    console.log("getMessages called");
+    console.log("[messageController]getMessages1 called");
     try {
       const messages = await messageService.getMessages();
       res.status(200).json(messages);
-      console.log("Messages fetched: ", messages)
+      console.log("[messageController getMessages 2]Messages fetched: ", messages)
     } catch (error) {
-      console.error("Error getting messages", error);
-      res.status(500).json({ error: 'Failed to get messages' });
+      console.error("[messageController6 getMessages error 1]Error getting messages", error);
+      res.status(500).json({ error: '[messageController getMessages error 2]Failed to get messages' });
     }
 
   }
 
 
   static async getAllMessagesForUser(req: Request, res: Response) {
-    console.log("getAllMessagesForUser called");
+    console.log("[messageController]getAllMessagesForUser1 called");
     try {
       const { userName } = req.params
       const messages = await messageService.getAllMessagesForUser(userName);
       res.status(200).json(messages);
-      console.log("Messages for user `$userName`:", messages)
+      console.log("[messageController]getAllMessagesForUser2 Messages for user `$userName`:", messages)
     } catch (error) {
-      console.error("Error getting all messages:", error);
-      res.status(500).json({ error: 'Failed to get messages' });
+      console.error("[messageController getMessagesUser error 1]Error getting all messages:", error);
+      res.status(500).json({ error: '[messageController getMessagesUser error 2]Failed to get messages' });
     }
 
   }
@@ -71,18 +70,21 @@ export default class MessageController {
 
   static async getMessagesForRoom(req: Request, res: Response) {
     try {
-      const { roomId } = req.params;
-      const messages = await messageService.getMessagesForRoom(roomId);
+      const { roomName: roomName } = req.params;
+      const messages = await messageService.getMessagesForRoom(roomName);
       res.status(200).json(messages);
-      console.log(`Messages for room ${roomId}:`, messages);
+      console.log(`[messageController getMessRoom1] Messages for room ${roomName}:`, messages);
 
     } catch (error) {
-      console.error("Error getting messages:", error);
+      console.error("[messageController getMessRoom error1]Error getting messages:", error);
 
-      res.status(500).json({ error: 'Error fetching messages' });
+      res.status(500).json({ error: '[messageController getMessRoom error 2]Error fetching messages' });
     }
-  }
+  }  }
 
 
-}
 
+
+
+
+  

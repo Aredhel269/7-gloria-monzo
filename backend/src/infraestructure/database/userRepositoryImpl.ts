@@ -6,30 +6,30 @@ const prisma = new PrismaClient();
 
 export class UserRepositoryImpl implements UserRepository {
   async createUser(user: User): Promise<User> {
-    console.log("Creating user in database:", user);
+    console.log("Creating user in database:[userRepoImpl createUser1]", user);
     const newUser = await prisma.user.create({
       data: {
         userName: user.userName,
         password: user.password
       }
     });
-    console.log("User created in database:", newUser);
+    console.log("User created in database:[userRepoImpl createUser2]", newUser);
     return new User(newUser.userName, newUser.password);
   }
 
   async getUserByUserName(userName: string): Promise<User | null> {
-    console.log("Getting user by username from database:", userName);
+    console.log("Getting user by username from database:[userRepoImpl getUserByUserName1]", userName);
     const user = await prisma.user.findFirst({
       where: { userName }
     });
-    console.log("User fetched from database:", user);
+    console.log("User fetched from database:[userRepoImpl getUserByUserName2]", user);
     return user ? new User(user.userName, user.password || '') : null;
   }
 
   async getAllUsers(): Promise<User[]> {
-    console.log("Getting all users from database");
+    console.log("Getting all users from database[userRepoImpl getAllUsers1]");
     const users = await prisma.user.findMany();
-    console.log("Users fetched from database:", users);
+    console.log("Users fetched from database:[userRepoImpl getAllUsers2]", users);
     return users.map((u: {
       userId: string;
       userName: string;
@@ -40,7 +40,7 @@ export class UserRepositoryImpl implements UserRepository {
   }
 
   async updateUser(userId: string, userName: string, password: string): Promise<User | null> {
-    console.log("Updating user in database:", { userId, userName, password });
+    console.log("Updating user in database:[userRepoImpl updateUser]", { userId, userName, password });
     const updatedUser = await prisma.user.update({
       where: { userId },
       data: {
@@ -48,16 +48,16 @@ export class UserRepositoryImpl implements UserRepository {
         password
       }
     });
-    console.log("User updated in database:", updatedUser);
+    console.log("User updated in database:[userRepoImpl updateUser]", updatedUser);
     return updatedUser ? new User(updatedUser.userName, updatedUser.password || '') : null;
   }
 
   async deleteUser(userId: string): Promise<void> {
-    console.log("Deleting user from database:", userId);
+    console.log("Deleting user from database:[userRepoImpl]", userId);
     await prisma.user.delete({
       where: { userId }
     });
-    console.log("User deleted from database");
+    console.log("User deleted from database[userRepoImpl]");
   }
 }
 

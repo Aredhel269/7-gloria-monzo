@@ -25,7 +25,7 @@ model User {
 
 model Room {
   roomId    String    @id @default(cuid())
-  roomName  String?
+  roomName  String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   messages  Message[] // Relació amb els missatges

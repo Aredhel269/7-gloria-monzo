@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import io from "socket.io-client";
 import {
   BrowserRouter as Router,
@@ -7,7 +7,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import RoomList from "./components/RoomList";
-import ChatRoom from "./components/ChatRoom"; // Nom del fitxer canviat aquí
+import ChatRoom from "./components/ChatRoom";
 import Login from "./components/Login";
 
 const socket = io("http://localhost:3000");
@@ -15,24 +15,21 @@ const socket = io("http://localhost:3000");
 const App = () => {
   const [userName, setUserName] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [rooms, setRooms] = useState<string[]>([]);
 
   const handleLogin = (userNameFromLogin: string) => {
+    console.log("[App][handleLogin] User logged in:", userNameFromLogin);
     setIsLoggedIn(true);
     setUserName(userNameFromLogin);
   };
 
-  useEffect(() => {
-    fetch("http://localhost:3000/api/rooms/allrooms")
-      .then((response) => response.json())
-      .then((data) => {
-        const roomNames = data.map((room: { _roomName: string }) => room._roomName);
-        setRooms(roomNames);
-      })
-      .catch((error) => console.error("Error fetching rooms:", error));
-  }, []);
+  const handleLogout = () => {
+    console.log("[App][handleLogout] User logged out:", userName);
+    setIsLoggedIn(false);
+    setUserName("");
+  };
 
   const handleCreateRoom = (roomName: string) => {
+    console.log("[App][handleCreateRoom] Creating new room:", roomName);
     socket.emit("createRoom", roomName);
   };
 
@@ -45,10 +42,10 @@ const App = () => {
         />
         <Route
           path="/rooms"
-          element={<RoomList handleCreateRoom={handleCreateRoom} userName={userName} />}
+          element={<RoomList handleCreateRoom={handleCreateRoom} />}
         />
         <Route
-          path="/chat/:roomId"
+          path="/chat/:roomName"
           element={<ChatRoom socket={socket} userName={userName} />}
         />
       </Routes>

@@ -1,4 +1,3 @@
-// messageRepositoryImpl.ts
 import { Message } from '../../domain/entities/message';
 import { MessageRepository } from '../../domain/repositories/messageRepository';
 import { PrismaClient } from '@prisma/client';
@@ -7,83 +6,101 @@ const prisma = new PrismaClient();
 
 export class MessageRepositoryImpl implements MessageRepository {
   async createMessage(message: Message): Promise<Message> {
-    const newMessage = await prisma.message.create({
-      data: {
-        messageText: message.messageText,
-        userId: message.userId,
-        roomId: message.roomId,
-      },
-    });
+    console.log("[messageRepoImpl][createMessage1] Creating new message");
 
-    return new Message(
-      newMessage.messageText,
-      newMessage.userId,
-      newMessage.roomId
-    );
+    try {
+      const newMessage = await prisma.message.create({
+        data: {
+          messageText: message.messageText,
+          userId: message.userId,
+          roomId: message.roomId,
+        },
+      });
+
+      console.log("[messageRepoImpl][createMessage2] New message created:", newMessage);
+
+      return new Message(
+        newMessage.messageText,
+        newMessage.userId,
+        newMessage.roomId
+      );
+    } catch (error) {
+      console.error("[messageRepoImpl][createMessage error1] Error creating message:", error);
+      throw error;
+    }
   }
 
   async getMessages(): Promise<Message[]> {
-    console.log("Getting all messages from database");
-    const messages = await prisma.message.findMany();
-    console.log("Messages fetched from database:", messages);
-    return messages.map((m: {
-      messageId: string;
-      messageText: string;
-      roomId: string;
-      userId: string;
-      createdAt: Date;
-      updatedAt: Date;
-    }) => new Message(m.messageText || '', m.roomId || '', m.userId || ''));
+    console.log("[messageRepoImpl][getMessages1] Getting all messages from database");
+
+    try {
+      const messages = await prisma.message.findMany();
+      console.log("[messageRepoImpl][getMessages2] Messages fetched from database:", messages);
+
+      return messages.map((m) => new Message(m.messageText, m.roomId, m.userId));
+    } catch (error) {
+      console.error("[messageRepoImpl][getMessages error1] Error fetching messages:", error);
+      throw error;
+    }
   }
 
   async getAllMessagesForUser(userName: string): Promise<Message[] | null> {
-    const userByUsername = await prisma.user.findFirst({
-      where: {
-        userName,
-      },
-    });
+    console.log("[messageRepoImpl][getAllMessagesForUser 1] Getting messages by username from database:", userName);
 
-    if (!userByUsername) {
-      return null; // L'usuari no existeix
+    try {
+      const userByUsername = await prisma.user.findFirst({
+        where: {
+          userName,
+        },
+      });
+
+      if (!userByUsername) {
+        console.log("[messageRepoImpl][getAllMessagesForUser 2] User not found");
+        return null;
+      }
+
+      const messagesForUser = await prisma.message.findMany({
+        where: {
+          userId: userByUsername.userId,
+        },
+      });
+
+      console.log("[messageRepoImpl][getAllMessagesForUser 3] Messages fetched for user:", messagesForUser);
+
+      return messagesForUser.map((msg) => new Message(msg.messageText, msg.userId, msg.roomId));
+    } catch (error) {
+      console.error("[messageRepoImpl][getAllMessagesForUser error1] Error fetching messages for user:", error);
+      throw error;
     }
-
-    const messagesForUser = await prisma.message.findMany({
-      where: {
-        userId: userByUsername.userId,
-      },
-    });
-
-    return messagesForUser.map((msg) => new Message(
-      msg.messageText,
-      msg.userId,
-      msg.roomId,
-    ));
   }
 
+  async getMessagesForRoom(roomName: string): Promise<Message[] | null> {
+    console.log("[messageRepoImpl][getMessagesForRoom 1] Getting messages for room:", roomName);
 
-  async getMessagesForRoom(roomId: string): Promise<Message[] | null> {
-    const roomByRoomId = await prisma.room.findFirst({
-      where: {
-        roomId,
-      },
-    });
+    try {
+      const roomByRoomName = await prisma.room.findFirst({
+        where: {
+          roomName,
+        },
+      });
 
-    if (!roomByRoomId) {
-      return null;
+      if (!roomByRoomName) {
+        console.log("[messageRepoImpl][getMessagesForRoom 2] Room not found");
+        return null;
+      }
+
+      const messagesForRoom = await prisma.message.findMany({
+        where: {
+          roomId: roomByRoomName.roomId,
+        },
+      });
+
+      console.log("[messageRepoImpl][getMessagesForRoom 3] Messages fetched for room:", messagesForRoom);
+
+      return messagesForRoom.map((msg) => new Message(msg.messageText, msg.userId, msg.roomId));
+    } catch (error) {
+      console.error("[messageRepoImpl][getMessagesForRoom error] Error fetching messages for room:", error);
+      throw error;
     }
-
-    const messagesForRoom = await prisma.message.findMany({
-      where: {
-        roomId: roomByRoomId.roomId,
-      },
-    });
-
-    return messagesForRoom.map((msg) => new Message(
-      msg.messageText,
-      msg.userId,
-      msg.roomId,
-    ));
   }
-
-
 }

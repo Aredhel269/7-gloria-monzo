@@ -2,7 +2,7 @@
     "clientName": "Thunder Client",
     "collectionName": "Xat",
     "collectionId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
-    "dateExported": "2024-06-19T06:05:40.488Z",
+    "dateExported": "2024-06-26T15:47:41.600Z",
     "version": "1.2",
     "folders": [
         {
@@ -37,11 +37,11 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2024-05-25T18:35:39.442Z",
-            "modified": "2024-06-12T09:20:54.750Z",
+            "modified": "2024-06-23T09:54:44.302Z",
             "headers": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"userName\":\"Nina\",\n  \"password\":\"1111\"\n}",
+                "raw": "{\n  \"userName\":\"prova\",\n  \"password\":\"1111\"\n}",
                 "form": []
             }
         },
@@ -54,11 +54,11 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2024-05-25T18:40:57.126Z",
-            "modified": "2024-06-19T05:26:29.010Z",
+            "modified": "2024-06-22T17:16:11.036Z",
             "headers": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"messageText\": \"Hola, aquest és un altre missatge de prova.\",\n  \"userId\": \"clwmopdqr00004c2m9yol20md\",\n  \"roomId\": \"clwmggm720002anstxjq5jm92\"\n}\n",
+                "raw": "{\n  \"messageText\": \"Hola, aquest és un dels molts missatges de prova.\",\n  \"userId\": \"clwmopdqr00004c2m9yol20md\",\n  \"roomId\": \"clwmggm720002anstxjq5jm92\"\n}\n",
                 "form": []
             }
         },
@@ -161,13 +161,13 @@
             "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
             "containerId": "0c10f1ea-cf9c-4712-9892-6504f2d1f21e",
             "name": "Get messages room",
-            "url": "http://localhost:3000/api/messages/messagesroom/clwmggm720002anstxjq5jm92",
+            "url": "http://localhost:3000/api/messages/messagesroom/general",
             "method": "GET",
             "sortNum": 70000,
             "created": "2024-06-19T06:05:22.025Z",
-            "modified": "2024-06-19T06:05:22.026Z",
+            "modified": "2024-06-26T15:47:18.538Z",
             "headers": []
         }
     ],
-    "ref": "NDibbWIKLxXhYjuhZahHwwV6SnuR4N-QiExD4Vrh_3IK58Y5kcSRub1vf7Pb1UVNlUdvGiEJwwMzvUWQZyuMSQ"
+    "ref": "NDibbWIKLxXhYjuhZahHw-It5KfR7aD--Z183Hrqao5KxEnZyv7bXiFYWwuwVgJxanSvLnQysK69LPoZY06_EA"
 }

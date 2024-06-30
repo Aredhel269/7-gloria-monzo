@@ -1,6 +1,6 @@
 import React from "react";
 
-const Sidebar = ({ participants, config }) => {
+const Sidebar = ({ participants }) => {
   return (
     <div className="sidebar">
       <div className="participants">
