@@ -23,6 +23,11 @@ export class UserServiceImpl implements UserService {
         return this.userRepository.getUserByUserName(userName);
     }
 
+    async getUserIdByUserName(userName:string): Promise<string | null> {  
+        console.log("Getting userId by username:[userServImpl getUserIdByUserName]", userName);
+        return this.userRepository.getUserIdByUserName(userName);
+    }
+
     async getAllUsers(): Promise<User[]> {
         console.log("Getting all users[userServImpl getAllUsers]");
         return this.userRepository.getAllUsers();
@@ -39,4 +44,3 @@ export class UserServiceImpl implements UserService {
         return null;
     }
 }
-

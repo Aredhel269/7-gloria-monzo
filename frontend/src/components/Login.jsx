@@ -13,12 +13,16 @@ const Login = ({ onLogin }) => {
     setError("");
 
     if (!userName.trim() || !password.trim()) {
-      console.error("[Login][handleAction] Error: Please fill in all the fields.");
+      console.error(
+        "[Login][handleAction] Error: Please fill in all the fields."
+      );
       setError("Please fill in all the fields.");
       return;
     }
 
-    const url = `http://localhost:3000/api/users/${isLoginMode ? "login" : "register"}`;
+    const url = `http://localhost:3000/api/users/${
+      isLoginMode ? "login" : "register"
+    }`;
     try {
       console.log("[Login][handleAction] Sending request to:", url);
       const response = await fetch(url, {
@@ -34,14 +38,17 @@ const Login = ({ onLogin }) => {
         throw new Error("Error: Invalid credentials");
       }
 
-      // eslint-disable-next-line no-unused-vars
       const data = await response.json();
       console.log("[Login][handleAction] Login/Registration successful:", data);
-      onLogin(userName);
-      sessionStorage.setItem("userName", userName);
+      onLogin(data.userWithId.userName, data.userWithId.userId);
+      sessionStorage.setItem("userName", data.userWithId.userName);
+      sessionStorage.setItem("userId", data.userWithId.userId);
       navigate("/rooms");
     } catch (error) {
-      console.error("[Login][handleAction] Error:", error.message || "Error: something went wrong.");
+      console.error(
+        "[Login][handleAction] Error:",
+        error.message || "Error: something went wrong."
+      );
       setError(error.message || "Error: something went wrong.");
     }
   };
@@ -67,9 +74,7 @@ const Login = ({ onLogin }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">
-          {isLoginMode ? "Login" : "Register"}
-        </button>
+        <button type="submit">{isLoginMode ? "Login" : "Register"}</button>
         <button type="button" onClick={toggleMode}>
           {isLoginMode ? "I want to register" : "I already have an account"}
         </button>

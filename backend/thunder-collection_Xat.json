@@ -2,7 +2,7 @@
     "clientName": "Thunder Client",
     "collectionName": "Xat",
     "collectionId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
-    "dateExported": "2024-06-26T15:47:41.600Z",
+    "dateExported": "2024-07-02T17:51:26.963Z",
     "version": "1.2",
     "folders": [
         {
@@ -54,11 +54,11 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2024-05-25T18:40:57.126Z",
-            "modified": "2024-06-22T17:16:11.036Z",
+            "modified": "2024-07-01T09:08:11.430Z",
             "headers": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"messageText\": \"Hola, aquest és un dels molts missatges de prova.\",\n  \"userId\": \"clwmopdqr00004c2m9yol20md\",\n  \"roomId\": \"clwmggm720002anstxjq5jm92\"\n}\n",
+                "raw": "{\n  \"messageText\": \"Provant\",\n  \"userId\": \"clwmopdqr00004c2m9yol20md\",\n  \"roomId\": \"clwmggm720002anstxjq5jm92\"\n}\n",
                 "form": []
             }
         },
@@ -96,11 +96,23 @@
             "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
             "containerId": "5a8e8f02-a8d8-4f2f-a3db-9197eeb5bf27",
             "name": "GET user by userName",
-            "url": "http://localhost:3000/api/users/istar",
+            "url": "http://localhost:3000/api/users/user/istar",
             "method": "GET",
             "sortNum": 20000,
             "created": "2024-05-27T16:11:57.041Z",
-            "modified": "2024-06-12T10:30:04.289Z",
+            "modified": "2024-07-02T17:44:25.905Z",
+            "headers": []
+        },
+        {
+            "_id": "52e84f68-0891-4fcc-a767-7ffe03e7912e",
+            "colId": "bc7053b4-1da4-4aa7-815a-2387e9f4f087",
+            "containerId": "5a8e8f02-a8d8-4f2f-a3db-9197eeb5bf27",
+            "name": "GET userId by userName ",
+            "url": "http://localhost:3000/api/users/userid/istar",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-07-02T17:41:50.312Z",
+            "modified": "2024-07-02T17:44:03.759Z",
             "headers": []
         },
         {
@@ -153,7 +165,7 @@
             "method": "GET",
             "sortNum": 60000,
             "created": "2024-06-19T05:24:45.802Z",
-            "modified": "2024-06-19T05:24:45.803Z",
+            "modified": "2024-06-29T13:10:47.937Z",
             "headers": []
         },
         {
@@ -169,5 +181,5 @@
             "headers": []
         }
     ],
-    "ref": "NDibbWIKLxXhYjuhZahHw-It5KfR7aD--Z183Hrqao5KxEnZyv7bXiFYWwuwVgJxanSvLnQysK69LPoZY06_EA"
+    "ref": "NDibbWIKLxXhYjuhZahHw-fWrL8UaNE0VR3FBj_XDseklaRvMpE0ehxTSC2ai47EajJbbHMxoMKBR4mcyYLjpg"
 }

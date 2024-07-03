@@ -40,13 +40,16 @@ const io = new Server(server, {
 // Interfície per a les extensions dels objectes Socket
 interface CustomSocket extends Socket {
     userName?: string; // Afegim una propietat opcional per userName
+    userId? : string; // Afegim una propietat opcional per userId
+
 }
 
 io.on('connection', (socket: CustomSocket) => {
     console.log('Nou client connectat[server io.on1]');
 
-    socket.on('joinRoom', ({ userName, roomName }) => {
-        socket.userName = userName; // Assignem el nom d'usuari al socket
+    socket.on('joinRoom', ({ userName, roomName, userId }) => {
+        socket.userName = userName; 
+        socket.userId = userId;// Assignem el nom d'usuari al socket
         socket.join(roomName);
         io.to(roomName).emit('chatMessage[server io.on2]', { userName: 'admin', message: `${userName} s'ha unit![server]` });
 
@@ -64,9 +67,9 @@ io.on('connection', (socket: CustomSocket) => {
         });
         io.to(roomName).emit('updateParticipants[server3]', roomParticipants);
     });
-
-    socket.on('chatMessage', ({ room, message, userName }) => {
-        io.to(room).emit('chatMessage[server4]', { userName, message });
+      
+    socket.on('chatMessage', ({ room, message, userName, userId }) => {
+        io.to(room).emit('chatMessage[server4]', { userName, message, userId });
     });
 
     socket.on('userTyping', ({ roomName, userName }) => {
@@ -85,13 +88,13 @@ io.on('connection', (socket: CustomSocket) => {
         io.to(roomName).emit('updateParticipants[server7]', roomParticipants);
     });
 
-    socket.on("disconnect", () => {
+    /*socket.on("disconnect", () => {
         console.log("Un usuari s'ha desconnectat[server8]");
         io.emit("chatMessage", {
             userName: "admin",
             message: `Un usuari s'ha desconnectat[server9]`,
         });
-    });
+    });*/
 });
 
 server.listen(PORT, () => {

@@ -13,8 +13,8 @@ export class MessageServiceImpl {
     userId: string,
     roomId: string
   ): Promise<Message> {
-    const message = new Message(messageText, userId, roomId);
-    return this.messageRepository.createMessage(message);
+    const newMessage = new Message(messageText, userId, roomId);
+    return this.messageRepository.createMessage(newMessage);
   }
 
   async getMessages(): Promise<Message[]> {

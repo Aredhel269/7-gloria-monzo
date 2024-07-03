@@ -6,23 +6,26 @@ const messageRepository = new MessageRepositoryImpl();
 const messageService = new MessageServiceImpl(messageRepository);
 
 export default class MessageController {
+  
   static async createMessage(req: Request, res: Response) {
     const { messageText, userId, roomId } = req.body;
+    
     console.log('[messageController createMessage1] Creating message:', { messageText, userId, roomId })
     try {
       const message = await messageService.createMessage(messageText, userId, roomId);
       console.log("[messageController createMessage2] Message created:", message);
-      const messageWithId = { ...message, id: message.messageId }
       res.status(201).json({
         succes: true,
-        messageWithId
+        message,
       });
-
     } catch (error) {
       console.error("[messageController createMessage error 1] Error creating message:", error);
       res.status(500).json({ error: '[messageController createMessage error 2]Failed to create message' });
     }
   }
+
+
+
   static async getMessages(req: Request, res: Response) {
     console.log("[messageController]getMessages1 called");
     try {
@@ -80,11 +83,12 @@ export default class MessageController {
 
       res.status(500).json({ error: '[messageController getMessRoom error 2]Error fetching messages' });
     }
-  }  }
+  }
+}
 
 
 
 
 
 
-  
+

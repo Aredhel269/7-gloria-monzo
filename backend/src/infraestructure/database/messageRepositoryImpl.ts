@@ -1,9 +1,8 @@
-import { Message } from '../../domain/entities/message';
-import { MessageRepository } from '../../domain/repositories/messageRepository';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
-
+  import { Message } from '../../domain/entities/message';
+  import { MessageRepository } from '../../domain/repositories/messageRepository';
+  import { PrismaClient } from '@prisma/client';
+  
+  const prisma = new PrismaClient();
 export class MessageRepositoryImpl implements MessageRepository {
   async createMessage(message: Message): Promise<Message> {
     console.log("[messageRepoImpl][createMessage1] Creating new message");
@@ -28,7 +27,8 @@ export class MessageRepositoryImpl implements MessageRepository {
       console.error("[messageRepoImpl][createMessage error1] Error creating message:", error);
       throw error;
     }
-  }
+      
+}
 
   async getMessages(): Promise<Message[]> {
     console.log("[messageRepoImpl][getMessages1] Getting all messages from database");
@@ -104,3 +104,31 @@ export class MessageRepositoryImpl implements MessageRepository {
     }
   }
 }
+
+
+
+/*
+  async createMessage(message: Message): Promise<Message> {
+    console.log("[messageRepoImpl][createMessage1] Creating new message");
+
+    try {
+      const newMessage = await prisma.message.create({
+        data: {
+          messageText: message.messageText,
+          userId: message.userId,
+          roomId: message.roomId,
+        },
+      });
+
+      console.log("[messageRepoImpl][createMessage2] New message created:", newMessage);
+
+      return new Message(
+        newMessage.messageText,
+        newMessage.userId,
+        newMessage.roomId
+      );
+    } catch (error) {
+      console.error("[messageRepoImpl][createMessage error1] Error creating message:", error);
+      throw error;
+    }
+  }*/

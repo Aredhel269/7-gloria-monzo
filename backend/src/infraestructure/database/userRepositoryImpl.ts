@@ -26,6 +26,17 @@ export class UserRepositoryImpl implements UserRepository {
     return user ? new User(user.userName, user.password || '') : null;
   }
 
+  async getUserIdByUserName(userName: string): Promise<string|null>{
+    console.log("Getting userId by username from database:[userRepoImpl getUserIdByUserName1]", userName);
+    const user = await prisma.user.findFirst({
+      where: { userName },
+      select: { userId: true } 
+    });
+    console.log("User fetched from database:[userRepoImpl getUserIdByUserName2]", user);
+    return user?.userId || null;
+  }
+  
+
   async getAllUsers(): Promise<User[]> {
     console.log("Getting all users from database[userRepoImpl getAllUsers1]");
     const users = await prisma.user.findMany();
