@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { socket } from "../ChatArea/ChatArea";
 
-const MessageInput = ({ onSendMessage, roomName, userName, userId }) => {
+const MessageInput = ({ onSendMessage, roomName,  userName, userId }) => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState(null);
 
@@ -17,7 +17,7 @@ const MessageInput = ({ onSendMessage, roomName, userName, userId }) => {
       const messageData = {
         messageText: message,
         userId: userId,
-        roomId: roomName      };
+        roomName: roomName      };
 
       // Enviar el missatge al ChatArea
       onSendMessage(messageData);

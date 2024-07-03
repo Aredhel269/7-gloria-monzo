@@ -8,11 +8,11 @@ const messageService = new MessageServiceImpl(messageRepository);
 export default class MessageController {
   
   static async createMessage(req: Request, res: Response) {
-    const { messageText, userId, roomId } = req.body;
+    const { messageText, userId, roomName } = req.body;
     
-    console.log('[messageController createMessage1] Creating message:', { messageText, userId, roomId })
+    console.log('[messageController createMessage1] Creating message:', { messageText, userId, roomName })
     try {
-      const message = await messageService.createMessage(messageText, userId, roomId);
+      const message = await messageService.createMessage(messageText, userId, roomName);
       console.log("[messageController createMessage2] Message created:", message);
       res.status(201).json({
         succes: true,
@@ -24,8 +24,6 @@ export default class MessageController {
     }
   }
 
-
-
   static async getMessages(req: Request, res: Response) {
     console.log("[messageController]getMessages1 called");
     try {
@@ -36,9 +34,7 @@ export default class MessageController {
       console.error("[messageController6 getMessages error 1]Error getting messages", error);
       res.status(500).json({ error: '[messageController getMessages error 2]Failed to get messages' });
     }
-
   }
-
 
   static async getAllMessagesForUser(req: Request, res: Response) {
     console.log("[messageController]getAllMessagesForUser1 called");
@@ -51,7 +47,6 @@ export default class MessageController {
       console.error("[messageController getMessagesUser error 1]Error getting all messages:", error);
       res.status(500).json({ error: '[messageController getMessagesUser error 2]Failed to get messages' });
     }
-
   }
 
   /* class MessageController {
@@ -73,7 +68,7 @@ export default class MessageController {
 
   static async getMessagesForRoom(req: Request, res: Response) {
     try {
-      const { roomName: roomName } = req.params;
+      const { roomName } = req.params;
       const messages = await messageService.getMessagesForRoom(roomName);
       res.status(200).json(messages);
       console.log(`[messageController getMessRoom1] Messages for room ${roomName}:`, messages);
@@ -84,6 +79,21 @@ export default class MessageController {
       res.status(500).json({ error: '[messageController getMessRoom error 2]Error fetching messages' });
     }
   }
+/* 
+  static async getMessagesForRoomId(req: Request, res: Response) {
+    try {
+      const { roomId } = req.params;
+      const messages = await messageService.getMessagesForRoomId(roomId);
+      res.status(200).json(messages);
+      console.log(`[messageController getMessRoomId1] Messages for roomId ${roomId}:`, messages);
+
+    } catch (error) {
+      console.error("[messageController getMessRoomId error1]Error getting messages:", error);
+
+      res.status(500).json({ error: '[messageController getMessRoomId error 2]Error fetching messages' });
+    }
+  } */
+  
 }
 
 

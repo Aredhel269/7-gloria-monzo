@@ -25,7 +25,7 @@ model User {
 
 model Room {
   roomId    String    @id @default(cuid())
-  roomName  String
+  roomName  String    @unique
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   messages  Message[] // Relació amb els missatges
@@ -38,7 +38,7 @@ model Message {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   userId      String
-  roomId      String
+  roomName    String
   user        User     @relation(fields: [userId], references: [userId])
-  room        Room     @relation(fields: [roomId], references: [roomId])
+  room        Room     @relation(fields: [roomName], references: [roomName])
 }

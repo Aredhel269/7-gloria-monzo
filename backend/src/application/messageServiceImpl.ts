@@ -11,9 +11,9 @@ export class MessageServiceImpl {
   async createMessage(
     messageText: string,
     userId: string,
-    roomId: string
+    roomName: string
   ): Promise<Message> {
-    const newMessage = new Message(messageText, userId, roomId);
+    const newMessage = new Message(messageText, userId, roomName);
     return this.messageRepository.createMessage(newMessage);
   }
 
@@ -28,4 +28,8 @@ export class MessageServiceImpl {
   async getMessagesForRoom(roomName: string): Promise<Message[] | null> {
     return this.messageRepository.getMessagesForRoom(roomName);
   }
+  /* async getMessagesForRoomId(roomId: string): Promise<Message[] | null> {
+    return this.messageRepository.getMessagesForRoomId(roomId);
+  } */
+  
 }

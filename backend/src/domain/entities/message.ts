@@ -2,12 +2,12 @@ export class Message {
     private _messageId!: string;
     private _messageText: string;
     private _userId: string;
-    private _roomId: string;
+    private _roomName: string;
   
-    constructor(messageText: string, userId: string, roomId: string) {
+    constructor(messageText: string, userId: string, _roomName: string) {
       this._messageText = messageText;
       this._userId = userId;
-      this._roomId = roomId;
+      this._roomName = _roomName;
     }
   
     get messageId(): string {
@@ -22,8 +22,8 @@ export class Message {
       return this._userId;
     }
   
-    get roomId(): string {
-      return this._roomId;
+    get roomName(): string {
+      return this._roomName;
     }
   }
   

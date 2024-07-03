@@ -12,7 +12,7 @@ export class MessageRepositoryImpl implements MessageRepository {
         data: {
           messageText: message.messageText,
           userId: message.userId,
-          roomId: message.roomId,
+          roomName: message.roomName,
         },
       });
 
@@ -21,7 +21,7 @@ export class MessageRepositoryImpl implements MessageRepository {
       return new Message(
         newMessage.messageText,
         newMessage.userId,
-        newMessage.roomId
+        newMessage.roomName
       );
     } catch (error) {
       console.error("[messageRepoImpl][createMessage error1] Error creating message:", error);
@@ -37,7 +37,7 @@ export class MessageRepositoryImpl implements MessageRepository {
       const messages = await prisma.message.findMany();
       console.log("[messageRepoImpl][getMessages2] Messages fetched from database:", messages);
 
-      return messages.map((m) => new Message(m.messageText, m.roomId, m.userId));
+      return messages.map((m) => new Message(m.messageText, m.roomName, m.userId));
     } catch (error) {
       console.error("[messageRepoImpl][getMessages error1] Error fetching messages:", error);
       throw error;
@@ -67,13 +67,49 @@ export class MessageRepositoryImpl implements MessageRepository {
 
       console.log("[messageRepoImpl][getAllMessagesForUser 3] Messages fetched for user:", messagesForUser);
 
-      return messagesForUser.map((msg) => new Message(msg.messageText, msg.userId, msg.roomId));
+      return messagesForUser.map((msg) => new Message(msg.messageText, msg.userId, msg.roomName));
     } catch (error) {
       console.error("[messageRepoImpl][getAllMessagesForUser error1] Error fetching messages for user:", error);
       throw error;
     }
   }
 
+  // MIRAR COM ACTUALITZAR MODEL PRISMA!!!!!!!!!!!!!
+  
+  /*
+  $ npx prisma generate --schema=./backend/prisma/schema.prisma
+$ npx prisma introspect
+$ npx prisma generate
+$ npx prisma db pull
+  async getMessagesForRoomId(roomId: string): Promise<Message[] | null> {
+    console.log("[messageRepoImpl][getMessagesForRoomId 1] Getting messages for room:", roomId);
+
+    try {
+      const roomByRoomId = await prisma.room.findUnique({
+        where: {
+          roomId,
+        },
+      });
+      console.log(roomByRoomId)
+      if (!roomByRoomId) {
+        console.log("[messageRepoImpl][getMessagesForRoom 2] Room not found");
+        return null;
+      }
+
+      const messagesForRoomId = await prisma.message.findMany({
+        where: {
+          roomId: roomByRoomId.roomId,
+        },
+      });
+
+      console.log("[messageRepoImpl][getMessagesForRoomId 3] Messages fetched for room:", messagesForRoomId);
+
+      return messagesForRoomId.map((msg) => new Message(msg.messageText, msg.userId, msg.roomId));
+    } catch (error) {
+      console.error("[messageRepoImpl][getMessagesForRoomId error] Error fetching messages for room:", error);
+      throw error;
+    }
+  }*/
   async getMessagesForRoom(roomName: string): Promise<Message[] | null> {
     console.log("[messageRepoImpl][getMessagesForRoom 1] Getting messages for room:", roomName);
 
@@ -91,13 +127,13 @@ export class MessageRepositoryImpl implements MessageRepository {
 
       const messagesForRoom = await prisma.message.findMany({
         where: {
-          roomId: roomByRoomName.roomId,
+          roomName: roomByRoomName.roomId,
         },
       });
 
       console.log("[messageRepoImpl][getMessagesForRoom 3] Messages fetched for room:", messagesForRoom);
 
-      return messagesForRoom.map((msg) => new Message(msg.messageText, msg.userId, msg.roomId));
+      return messagesForRoom.map((msg) => new Message(msg.messageText, msg.userId, msg.roomName));
     } catch (error) {
       console.error("[messageRepoImpl][getMessagesForRoom error] Error fetching messages for room:", error);
       throw error;

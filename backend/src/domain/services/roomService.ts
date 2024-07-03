@@ -1,8 +1,8 @@
 import { Room } from '../entities/room';
 
-// FALTEN LES ALTRES PROPIETATS DE ROOM
 export interface RoomService {
     createRoom(roomName: string): Promise<Room>;
     getRoomByName(roomName: string): Promise<Room | null>;
+    getRoomIdByRoomName(roomName: string): Promise<string | null>;
     getAllRooms(): Promise<Room[]>;
   }

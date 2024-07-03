@@ -50,4 +50,22 @@ export default class RoomController {
       res.status(500).json({ error: "Error getting all rooms[roomController getAllRooms error2]" });
     }
   }
+
+  static async getRoomIdByRoomName(req: Request, res: Response) {
+    const { roomName } = req.params;
+    console.log("getRoomIdByRoomName called with[roomController getRoomIdByRoomName]", { roomName });
+    try {
+      const roomId = await roomService.getRoomIdByRoomName(roomName);
+      if (roomId) {
+        console.log("Room ID found:[roomController getRoomIdByRoomName2]", roomId);
+        res.status(200).json({  roomId });
+      } else {
+        console.log("Room not found:[roomController getRoomIdByRoomName error1]", roomName);
+        res.status(404).json({ error: "[roomController getRoomIdByRoomName error2]Room not found" });
+      }
+    } catch (error) {
+      console.error("[roomController getRoomIdByRoomName error3]Error getting room ID by roomname:", error);
+      res.status(500).json({ error: "Error getting room ID by roomname[roomController getRoomIdByRoomName error4]" });
+    }
+  }
 }

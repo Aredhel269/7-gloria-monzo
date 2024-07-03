@@ -6,12 +6,12 @@ import TypingNotification from "./TypingNotification";
 
 export const socket = io("http://localhost:3000");
 
-const ChatArea = ({ roomName, userName, userId }) => {
+const ChatArea = ({ roomName,  userName, userId }) => {
   const [messages, setMessages] = useState([]);
   const [writingUser, setWritingUser] = useState("");
 
   useEffect(() => {
-    socket.emit("joinRoom", { userName, roomName , userId});
+    socket.emit("joinRoom", { userName,  roomName , userId});
 
     socket.on("chatMessage", (data) => {
       setMessages((prevMessages) => [...prevMessages, data]);
@@ -29,7 +29,7 @@ const ChatArea = ({ roomName, userName, userId }) => {
     });
 
     return () => {
-      socket.emit("leaveRoom", { roomName, userName, userId });
+      socket.emit("leaveRoom", { roomName,  userName, userId });
       socket.off("chatMessage");
       socket.off("userWriting");
       socket.off("updateParticipants");

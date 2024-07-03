@@ -47,7 +47,15 @@ export class RoomRepositoryImpl implements RoomRepository {
       throw error;
     }
   }
-
+  async getRoomIdByRoomName(roomName: string): Promise<string|null>{
+    console.log("Getting roomId by roomName from database:[roomRepoImpl getRoomIdByRoomName1]", roomName);
+    const room = await prisma.room.findFirst({
+      where: { roomName },
+      select: { roomId: true } 
+    });
+    console.log("room fetched from database:[roomRepoImpl getRoomIdByRoomName2]", room);
+    return room?.roomId || null;
+  }
   async getAllRooms(): Promise<Room[]> {
     console.log("[roomRepoImpl][getAllRooms1] Getting all rooms");
 
