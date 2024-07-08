@@ -1,19 +1,13 @@
-//import React from "react";
-//import MessageItem from "../MessagesComponent/MessageItem";
+import MessageItem from "../MessagesComponent/MessageItem";
 
-const MessageList = ({ messages, userId }) => {
+const MessageList = ({ messages }) => {
   return (
-    <div className="message-list">
+    <ul className="message-list">
       {messages.map((message, index) => (
-        <div
-          key={index}
-          className={`message ${message.userId === userId ? "own-message" : ""}`}
-        >
-          <span className="message-username">{message.userName}:</span>
-          <span className="message-text">{message.messageText}</span>
-        </div>
+        <MessageItem key={index} message={message} />
       ))}
-    </div>
+    </ul>
   );
 };
+
 export default MessageList;

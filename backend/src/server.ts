@@ -53,6 +53,8 @@ io.on('connection', (socket: CustomSocket) => {
         socket.join(roomName);
         io.to(roomName).emit('chatMessage[server io.on2]', { userName: 'admin', message: `${userName} s'ha unit![server]` });
 
+        
+
         // Emitim els missatges existents de la sala (simulat)
         /* existingMessages = [
             { userName: 'usuari1', message: 'Hola a tots![server]' },
@@ -65,27 +67,27 @@ io.on('connection', (socket: CustomSocket) => {
             const participantSocket = io.sockets.sockets.get(socketId) as CustomSocket;
             return participantSocket?.userName ?? '';
         });
-        io.to(roomName).emit('updateParticipants[server3]', roomParticipants);
+        io.to(roomName).emit('updateParticipants', roomParticipants);
     });
       
-    socket.on('chatMessage', ({ room, message, userName, userId }) => {
-        io.to(room).emit('chatMessage[server4]', { userName, message, userId });
+    socket.on('chatMessage', ({ roomName, messageText, userName, userId }) => {
+        socket.to(roomName).emit('chatMessage', { userName, messageText, userId });
     });
 
     socket.on('userTyping', ({ roomName, userName }) => {
-        socket.to(roomName).emit('userWriting[server5]', { userName });
+        socket.to(roomName).emit('userWriting', { userName });
     });
 
     socket.on('leaveRoom', ({ roomName, userName }) => {
         socket.leave(roomName);
-        io.to(roomName).emit('chatMessage[server6]', { userName: 'admin', message: `${userName} ha deixat la sala.` });
+        io.to(roomName).emit('chatMessage', { userName: 'admin', message: `${userName} ha deixat la sala.` });
 
         // Actualitzem la llista de participants
         const roomParticipants = Array.from(io.sockets.adapter.rooms.get(roomName) ?? []).map(socketId => {
             const participantSocket = io.sockets.sockets.get(socketId) as CustomSocket;
             return participantSocket?.userName ?? '';
         });
-        io.to(roomName).emit('updateParticipants[server7]', roomParticipants);
+        io.to(roomName).emit('updateParticipants', roomParticipants);
     });
 
     /*socket.on("disconnect", () => {
@@ -102,6 +104,4 @@ server.listen(PORT, () => {
 });
 
 export default server;
-
-
 

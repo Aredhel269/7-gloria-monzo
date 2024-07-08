@@ -1,7 +1,7 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { socket } from "../ChatArea/ChatArea";
 
-const MessageInput = ({ onSendMessage, roomName,  userName, userId }) => {
+const MessageInput = ({ onSendMessage, roomName, userName, userId }) => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState(null);
 
@@ -17,9 +17,10 @@ const MessageInput = ({ onSendMessage, roomName,  userName, userId }) => {
     const messageData = {
       messageText: message,
       userId: userId,
+      userName: userName,
       roomName: roomName,
     };
-  
+
     // Enviar el missatge al ChatArea
     onSendMessage(message);
   
@@ -46,7 +47,6 @@ const MessageInput = ({ onSendMessage, roomName,  userName, userId }) => {
         console.error("Error desant el missatge:", error);
       });
   };
-  
 
   const sendTypingNotification = () => {
     socket.emit("userTyping", { roomName, userName });

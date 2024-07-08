@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import io from "socket.io-client";
 import MessageInput from "./MessageInput";
 import MessageList from "./MessageList";
@@ -6,12 +6,12 @@ import TypingNotification from "./TypingNotification";
 
 export const socket = io("http://localhost:3000");
 
-const ChatArea = ({ roomName,  userName, userId }) => {
+const ChatArea = ({ roomName, userName, userId }) => {
   const [messages, setMessages] = useState([]);
   const [writingUser, setWritingUser] = useState("");
 
   useEffect(() => {
-    socket.emit("joinRoom", { userName,  roomName , userId});
+    socket.emit("joinRoom", { userName, roomName, userId });
 
     socket.on("chatMessage", (data) => {
       setMessages((prevMessages) => [...prevMessages, data]);
@@ -24,42 +24,39 @@ const ChatArea = ({ roomName,  userName, userId }) => {
       }
     });
 
+    
+
     socket.on("updateParticipants", (roomParticipants) => {
       // Actualitza la llista de participants
     });
 
     return () => {
-      socket.emit("leaveRoom", { roomName,  userName, userId });
+      socket.emit("leaveRoom", { roomName, userName, userId });
       socket.off("chatMessage");
       socket.off("userWriting");
       socket.off("updateParticipants");
     };
   }, [roomName, userName, userId]);
 
-  
-  const handleSendMessage = (message) => {
-    if (socket && message.trim() !== '') {
+  const handleSendMessage = (messageText) => {
+    const message = { userName, messageText, roomName, userId };
+    if (socket && messageText.trim() !== '') {
       setMessages((prevMessages) => [
         ...prevMessages,
-        { messageText: `${userName}: ${message}` },
+        message
       ]);
-      socket.emit('message', `${userName}: ${message}`, roomName);
+      socket.emit('chatMessage', message);
     }
   };
-  
-  /* const handleSendTypingNotification = () => {
-    socket.emit("userTyping", { roomName, userName });
-  }; */
 
   return (
     <div className="chat-area">
       {writingUser && <TypingNotification userName={writingUser} />}
       <MessageList
-        messages={messages.sort((a, b) => a.timestamp - b.timestamp)}
+        messages={messages}
       />
       <MessageInput
         onSendMessage={handleSendMessage}
-        //onSendTypingNotification={handleSendTypingNotification}
         roomName={roomName}
         userName={userName}
         userId={userId}
