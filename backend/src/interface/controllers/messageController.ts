@@ -42,7 +42,7 @@ export default class MessageController {
       const { userName } = req.params
       const messages = await messageService.getAllMessagesForUser(userName);
       res.status(200).json(messages);
-      console.log("[messageController]getAllMessagesForUser2 Messages for user `$userName`:", messages)
+      console.log(`[messageController]getAllMessagesForUser2 Messages for user ${userName}:`, messages)
     } catch (error) {
       console.error("[messageController getMessagesUser error 1]Error getting all messages:", error);
       res.status(500).json({ error: '[messageController getMessagesUser error 2]Failed to get messages' });
@@ -67,11 +67,13 @@ export default class MessageController {
   } */
 
   static async getMessagesForRoom(req: Request, res: Response) {
+    console.log("[messageController]getMessagesForRoom called");
+
     try {
       const { roomName } = req.params;
       const messages = await messageService.getMessagesForRoom(roomName);
       res.status(200).json(messages);
-      console.log(`[messageController getMessRoom1] Messages for room ${roomName}:`, messages);
+      console.log(`[messageController getMessRoom1] Messages for room2 ${roomName}:`, messages);
 
     } catch (error) {
       console.error("[messageController getMessRoom error1]Error getting messages:", error);

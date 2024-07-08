@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import io from "socket.io-client";
 import MessageInput from "./MessageInput";
 import MessageList from "./MessageList";
@@ -36,15 +36,20 @@ const ChatArea = ({ roomName,  userName, userId }) => {
     };
   }, [roomName, userName, userId]);
 
-  const handleSendMessage = (messageData) => {
-    console.log("[ChatArea][handleSendMessage] Sending message:", messageData);
-    setMessages((prevMessages) => [...prevMessages, messageData]);
-    socket.emit("chatMessage", messageData);
+  
+  const handleSendMessage = (message) => {
+    if (socket && message.trim() !== '') {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { messageText: `${userName}: ${message}` },
+      ]);
+      socket.emit('message', `${userName}: ${message}`, roomName);
+    }
   };
-
-  const handleSendTypingNotification = () => {
+  
+  /* const handleSendTypingNotification = () => {
     socket.emit("userTyping", { roomName, userName });
-  };
+  }; */
 
   return (
     <div className="chat-area">
@@ -54,7 +59,7 @@ const ChatArea = ({ roomName,  userName, userId }) => {
       />
       <MessageInput
         onSendMessage={handleSendMessage}
-        onSendTypingNotification={handleSendTypingNotification}
+        //onSendTypingNotification={handleSendTypingNotification}
         roomName={roomName}
         userName={userName}
         userId={userId}

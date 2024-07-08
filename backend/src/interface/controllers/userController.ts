@@ -12,8 +12,7 @@ export default class UserController {
     try {
       const user = await userService.createUser(userName, password);
       console.log("User created:[userController registerUser2]", user);
-      res.status(201).json({ success: true, userWithId: { userName: user.userName, userId: user.userId } });
-      res.status(200).json({ userWithId: { userName: user.userName } });
+      res.status(201).json({ success: true, user: { userName: user.userName, userId: user.userId } });
     } catch (error) {
       console.error("Error registering user:[userController registerUser error1]", error);
       res.status(500).json({ error: "Error registering user[userController registerUser error2]" });
@@ -27,7 +26,7 @@ export default class UserController {
       const user = await userService.login(userName, password);
       if (user) {
         console.log("Login successful:[userController login2]", { user });
-        res.status(200).json({ userWithId: { userName: user.userName, userId: user.userId } });
+        res.status(200).json({ user: { userName: user.userName, userId: user.userId } });
       } else {
         console.log("Login failed: incorrect credentials[userController loginUser error1]");
         res.status(401).json({ error: "Incorrect credentials[userController  loginUser error2]" });

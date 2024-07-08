@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../Context/UserContext";
 
 function RoomList({ handleCreateRoom }) {
   const [rooms, setRooms] = useState([]);
   const navigate = useNavigate();
+  const { userName, userId } = useContext(UserContext);
 
   useEffect(() => {
     console.log("[RoomList][useEffect] Fetching rooms from the backend");
 
-    // Carrega les sales des del backend quan el component es monta
+    // Carrega les sales des del backend quan el component es munta
     fetch("http://localhost:3000/api/rooms/allrooms")
       .then((response) => {
         if (!response.ok) {
@@ -23,6 +25,8 @@ function RoomList({ handleCreateRoom }) {
       })
       .catch((error) => {
         console.error("[RoomList][useEffect] Error loading rooms:", error);
+        // Mostra un missatge d'error a l'usuari
+        alert("Error loading rooms. Please try again later.");
       });
   }, []);
 
@@ -40,7 +44,7 @@ function RoomList({ handleCreateRoom }) {
   };
 
   return (
-    <div className="chat-container">
+    <div className="room-list-container">
       <button onClick={onCreateRoom}>Create Room</button>
       <h2>Available Rooms</h2>
       <ul>

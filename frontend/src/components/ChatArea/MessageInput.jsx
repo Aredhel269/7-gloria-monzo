@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { socket } from "../ChatArea/ChatArea";
 
 const MessageInput = ({ onSendMessage, roomName,  userName, userId }) => {
@@ -14,38 +14,39 @@ const MessageInput = ({ onSendMessage, roomName,  userName, userId }) => {
   };
 
   const sendMessage = () => {
-      const messageData = {
-        messageText: message,
-        userId: userId,
-        roomName: roomName      };
-
-      // Enviar el missatge al ChatArea
-      onSendMessage(messageData);
-
-      // Enviar el missatge a la base de dades
-      fetch("http://localhost:3000/api/messages/newMessage", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(messageData),
+    const messageData = {
+      messageText: message,
+      userId: userId,
+      roomName: roomName,
+    };
+  
+    // Enviar el missatge al ChatArea
+    onSendMessage(message);
+  
+    // Enviar el missatge a la base de dades
+    fetch("http://localhost:3000/api/messages/newMessage", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(messageData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("Message saved successfully");
+          setError(null);
+          setMessage("");
+        } else {
+          setError("Error desant el missatge. Si us plau, torna-ho a provar més tard.");
+          console.error("Error desant el missatge:", response.status);
+        }
       })
-        .then((response) => {
-          if (response.ok) {
-            console.log("Message saved successfully");
-            setError(null);
-            setMessage("");
-          } else {
-            setError("Error saving message. Please try again later.");
-            console.error("Error saving message:", response.status);
-          }
-        })
-        .catch((error) => {
-          setError("Error saving message. Please try again later.");
-          console.error("Error saving message:", error);
-        });
-    
+      .catch((error) => {
+        setError("Error desant el missatge. Si us plau, torna-ho a provar més tard.");
+        console.error("Error desant el missatge:", error);
+      });
   };
+  
 
   const sendTypingNotification = () => {
     socket.emit("userTyping", { roomName, userName });

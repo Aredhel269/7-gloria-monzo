@@ -27,7 +27,17 @@ export class RoomRepositoryImpl implements RoomRepository {
       console.error("[roomRepoImpl][createRoom error2] Error creating room:", error);
       throw error;
     }
-  }
+  }/*async createRoom(roomName: string): Promise<Room> {
+  console.log("[roomRepoImpl][createRoom1] Creating new room:", roomName);
+  const newRoom = await prisma.room.create({
+    data: {
+      roomName
+    }
+  });
+  console.log("[roomRepoImpl][createRoom2] New room created:", newRoom);
+  return newRoom;
+}
+*/
 
   async getRoomByName(roomName: string): Promise<Room | null> {
     console.log("[roomRepoImpl][getRoomByName1] Getting room by name:", roomName);

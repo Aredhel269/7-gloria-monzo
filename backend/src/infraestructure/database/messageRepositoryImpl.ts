@@ -1,8 +1,8 @@
-  import { Message } from '../../domain/entities/message';
-  import { MessageRepository } from '../../domain/repositories/messageRepository';
-  import { PrismaClient } from '@prisma/client';
-  
-  const prisma = new PrismaClient();
+import { Message } from '../../domain/entities/message';
+import { MessageRepository } from '../../domain/repositories/messageRepository';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 export class MessageRepositoryImpl implements MessageRepository {
   async createMessage(message: Message): Promise<Message> {
     console.log("[messageRepoImpl][createMessage1] Creating new message");
@@ -27,8 +27,7 @@ export class MessageRepositoryImpl implements MessageRepository {
       console.error("[messageRepoImpl][createMessage error1] Error creating message:", error);
       throw error;
     }
-      
-}
+  }
 
   async getMessages(): Promise<Message[]> {
     console.log("[messageRepoImpl][getMessages1] Getting all messages from database");
@@ -73,44 +72,38 @@ export class MessageRepositoryImpl implements MessageRepository {
       throw error;
     }
   }
-
-  // MIRAR COM ACTUALITZAR MODEL PRISMA!!!!!!!!!!!!!
+    async getMessagesForRoom(roomName: string): Promise<Message[] | null> {
+      console.log("[messageRepoImpl][getMessagesForRoom 1] Getting messages by roomName from database:", roomName);
   
-  /*
-  $ npx prisma generate --schema=./backend/prisma/schema.prisma
-$ npx prisma introspect
-$ npx prisma generate
-$ npx prisma db pull
-  async getMessagesForRoomId(roomId: string): Promise<Message[] | null> {
-    console.log("[messageRepoImpl][getMessagesForRoomId 1] Getting messages for room:", roomId);
-
-    try {
-      const roomByRoomId = await prisma.room.findUnique({
-        where: {
-          roomId,
-        },
-      });
-      console.log(roomByRoomId)
-      if (!roomByRoomId) {
-        console.log("[messageRepoImpl][getMessagesForRoom 2] Room not found");
-        return null;
+      try {
+        const roomByRoomName = await prisma.room.findFirst({
+          where: {
+            roomName,
+          },
+        });
+  
+        if (!roomByRoomName) {
+          console.log("[messageRepoImpl][getMessagesForRoom 2] Room not found");
+          return null;
+        }
+  
+        const messagesForRoom = await prisma.message.findMany({
+          where: {
+            roomName: roomByRoomName.roomName,
+          },
+        });
+  
+        console.log("[messageRepoImpl][getMessagesForRoom 3] Messages fetched for room:", messagesForRoom);
+  
+        return messagesForRoom.map((msg) => new Message(msg.messageText, msg.userId, msg.roomName));
+      } catch (error) {
+        console.error("[messageRepoImpl][getAllMessagesForRoom error1] Error fetching messages for room:", error);
+        throw error;
       }
+  }
 
-      const messagesForRoomId = await prisma.message.findMany({
-        where: {
-          roomId: roomByRoomId.roomId,
-        },
-      });
 
-      console.log("[messageRepoImpl][getMessagesForRoomId 3] Messages fetched for room:", messagesForRoomId);
-
-      return messagesForRoomId.map((msg) => new Message(msg.messageText, msg.userId, msg.roomId));
-    } catch (error) {
-      console.error("[messageRepoImpl][getMessagesForRoomId error] Error fetching messages for room:", error);
-      throw error;
-    }
-  }*/
-  async getMessagesForRoom(roomName: string): Promise<Message[] | null> {
+  /* async getMessagesForRoom(roomName: string): Promise<Message[] | null> {
     console.log("[messageRepoImpl][getMessagesForRoom 1] Getting messages for room:", roomName);
 
     try {
@@ -138,11 +131,45 @@ $ npx prisma db pull
       console.error("[messageRepoImpl][getMessagesForRoom error] Error fetching messages for room:", error);
       throw error;
     }
-  }
+  } */
 }
 
 
 
+/*
+$ npx prisma generate --schema=./backend/prisma/schema.prisma
+$ npx prisma introspect
+$ npx prisma generate
+$ npx prisma db pull
+async getMessagesForRoomId(roomId: string): Promise<Message[] | null> {
+  console.log("[messageRepoImpl][getMessagesForRoomId 1] Getting messages for room:", roomId);
+
+  try {
+    const roomByRoomId = await prisma.room.findUnique({
+      where: {
+        roomId,
+      },
+    });
+    console.log(roomByRoomId)
+    if (!roomByRoomId) {
+      console.log("[messageRepoImpl][getMessagesForRoom 2] Room not found");
+      return null;
+    }
+
+    const messagesForRoomId = await prisma.message.findMany({
+      where: {
+        roomId: roomByRoomId.roomId,
+      },
+    });
+
+    console.log("[messageRepoImpl][getMessagesForRoomId 3] Messages fetched for room:", messagesForRoomId);
+
+    return messagesForRoomId.map((msg) => new Message(msg.messageText, msg.userId, msg.roomId));
+  } catch (error) {
+    console.error("[messageRepoImpl][getMessagesForRoomId error] Error fetching messages for room:", error);
+    throw error;
+  }
+}*/
 /*
   async createMessage(message: Message): Promise<Message> {
     console.log("[messageRepoImpl][createMessage1] Creating new message");

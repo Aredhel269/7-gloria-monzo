@@ -1,5 +1,5 @@
-import React from "react";
-import MessageItem from "../MessagesComponent/MessageItem";
+//import React from "react";
+//import MessageItem from "../MessagesComponent/MessageItem";
 
 const MessageList = ({ messages, userId }) => {
   return (

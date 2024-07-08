@@ -3,16 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@prisma/client": "^5.16.1",
     "@types/node": "^16.18.79",
     "@types/react-dom": "^18.2.18",
     "axios": "^1.6.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.0",
-    "react-scripts": "5.0.1",
+    "react-router-dom": "^6.24.1",
+    "react-scripts": "^5.0.1",
     "socket.io-client": "^4.7.4",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"  },
+    "web-vitals": "^2.1.4"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -36,7 +37,10 @@
     ]
   },
   "devDependencies": {
-    "@types/react": "^18.3.3",
-    "cross-env": "^7.0.3"
+    "prisma": "^5.16.1",
+    "source-map-loader": "^5.0.0"
+  },
+  "prisma": {
+    "schema": "./prisma/schema.prisma"
   }
 }

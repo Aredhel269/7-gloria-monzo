@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = ({ onLogin }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [userId, setUserId] = useState("");
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -13,16 +14,12 @@ const Login = ({ onLogin }) => {
     setError("");
 
     if (!userName.trim() || !password.trim()) {
-      console.error(
-        "[Login][handleAction] Error: Please fill in all the fields."
-      );
+      console.error("[Login][handleAction] Error: Please fill in all the fields.");
       setError("Please fill in all the fields.");
       return;
     }
 
-    const url = `http://localhost:3000/api/users/${
-      isLoginMode ? "login" : "register"
-    }`;
+    const url = `http://localhost:3000/api/users/${isLoginMode ? "login" : "register"}`;
     try {
       console.log("[Login][handleAction] Sending request to:", url);
       const response = await fetch(url, {
@@ -40,15 +37,11 @@ const Login = ({ onLogin }) => {
 
       const data = await response.json();
       console.log("[Login][handleAction] Login/Registration successful:", data);
-      onLogin(data.userWithId.userName, data.userWithId.userId);
-      sessionStorage.setItem("userName", data.userWithId.userName);
-      sessionStorage.setItem("userId", data.userWithId.userId);
+      setUserId(data.userId);
+      onLogin(userName, data.userId);
       navigate("/rooms");
     } catch (error) {
-      console.error(
-        "[Login][handleAction] Error:",
-        error.message || "Error: something went wrong."
-      );
+      console.error("[Login][handleAction] Error:", error.message || "Error: something went wrong.");
       setError(error.message || "Error: something went wrong.");
     }
   };
