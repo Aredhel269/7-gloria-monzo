@@ -4,7 +4,7 @@ export class Message {
     private _userId: string;
     private _roomName: string;
   
-    constructor(messageText: string, userId: string, _roomName: string) {
+    constructor(messageText: string, userId: string, roomName: string) {
       this._messageText = messageText;
       this._userId = userId;
       this._roomName = roomName;
