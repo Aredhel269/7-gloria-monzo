@@ -7,7 +7,7 @@ export class Message {
     constructor(messageText: string, userId: string, _roomName: string) {
       this._messageText = messageText;
       this._userId = userId;
-      this._roomName = _roomName;
+      this._roomName = roomName;
     }
   
     get messageId(): string {
